@@ -1,4 +1,3 @@
 # Practica3
 
-Juan David Velazquez
-Edwin Ramirez Gonzalez
+Juan David Velazquez y Edwin Ramirez Gonzalez
