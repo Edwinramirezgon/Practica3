@@ -1,0 +1,78 @@
+﻿@page "/Materials"
+@using Construction.Shared.Entities
+@using Construction.WEB.Repositories
+@using Construction.WEB.Shared
+@inject IRepository Repository
+
+
+<h1>Materials Index</h1>
+<div class="mb-3">
+    <a class="btn btn-primary" href="/materials/create">New Materials</a>
+</div>
+
+<GenericList MyList="Materials">
+
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var material in Materials!)
+                {
+                    <tr>
+                        <td>
+                            @material.Name
+                        </td>
+                        <td>
+                            @material.RequiredQuantity
+                        </td>
+                        <td>
+                            @material.Supplier
+                        </td>
+                        <td>
+                            @material.EstimatedDeliveryTime
+                        </td>
+                        <td>
+                            @material.ProjectConstructionsId
+                        </td>
+                       
+
+                        <td>
+                            <a class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger">Borrar</button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </Body>
+
+</GenericList>
+
+
+
+@code {
+
+    public List<Material> Materials { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+
+        var responseHttp = await Repository.GetAsync<List<Material>>("/api/materials");
+
+        Materials = responseHttp.Response!;
+
+
+
+    }
+
+
+
+}

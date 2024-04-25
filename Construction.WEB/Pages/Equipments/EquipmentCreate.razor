@@ -1,0 +1,49 @@
+﻿@page "/equipments/create"
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
+
+<h3>Equipments Create</h3>
+
+<EquipmentForm @ref="equipmentForm" Equipment="equipment" OnSubmit="Create" ReturnAction="Return" />
+
+
+@code {
+    private Equipment equipment = new();
+    private EquipmentForm equipmentForm;
+
+    private async Task Create()
+    {
+        var responseHttp = await repository.Post("/api/equipments", equipment);
+
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessage();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+        Return();
+
+        var Toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+
+            Toast = true,
+            Position = SweetAlertPosition.BottomEnd,
+             ShowConfirmButton = true,
+            Timer = 3000
+
+            });
+
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
+
+    }
+
+    private void Return()
+    {
+
+        navigationManager.NavigateTo("/equipments");
+
+    }
+
+}

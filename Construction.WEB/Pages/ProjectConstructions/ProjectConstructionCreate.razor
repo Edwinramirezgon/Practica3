@@ -1,0 +1,49 @@
+﻿@page "/projectconstructions/create"
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
+
+<h3>Project Construction Create</h3>
+
+<ProjectConstructionForm @ref="projectconstructionForm" ProjectConstruction="projectconstruction" OnSubmit="Create" ReturnAction="Return" />
+
+
+@code {
+    private ProjectConstruction projectconstruction = new();
+    private ProjectConstructionForm projectconstructionForm;
+
+    private async Task Create()
+    {
+        var responseHttp = await repository.Post("/api/projectconstructions", projectconstruction);
+
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessage();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+        Return();
+
+        var Toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+
+            Toast = true,
+            Position = SweetAlertPosition.BottomEnd,
+             ShowConfirmButton = true,
+            Timer = 3000
+
+            });
+
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
+
+    }
+
+    private void Return()
+    {
+
+        navigationManager.NavigateTo("/projectconstructions");
+
+    }
+
+}

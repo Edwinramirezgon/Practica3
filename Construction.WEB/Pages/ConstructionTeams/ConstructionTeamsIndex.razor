@@ -1,0 +1,72 @@
+﻿@page "/ConstructionTeams"
+@using Construction.Shared.Entities
+@using Construction.WEB.Repositories
+@using Construction.WEB.Shared
+@inject IRepository Repository
+
+<h1>Construction Teams Index</h1>
+
+
+<div class="mb-3">
+    <a class="btn btn-primary" href="/constructionteams/create">New Construction Team</a>
+</div>
+
+<GenericList MyList="ConstructionTeams">
+
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ConstructionTeam</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var constructionteam in ConstructionTeams!)
+                {
+                    <tr>
+                        <td>
+                            @constructionteam.Name
+                        </td>
+                        <td>
+                            @constructionteam.Specialties
+                        </td>
+                        <td>
+                            @constructionteam.MembersList
+                            </td>
+                            <td>
+                            @constructionteam.Remarks
+                        </td>
+                       
+                      
+                        <td>
+                            <a class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger">Borrar</button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </Body>
+ 
+</GenericList>
+
+@code {
+
+    public List<ConstructionTeam> ConstructionTeams { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+
+        var responseHttp = await Repository.GetAsync<List<ConstructionTeam>>("/api/constructionteams");
+
+        ConstructionTeams = responseHttp.Response!;
+
+
+
+    }
+
+}
