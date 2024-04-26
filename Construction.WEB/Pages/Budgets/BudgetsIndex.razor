@@ -86,6 +86,23 @@
 
     private async Task Delete(Budget budget)
     {
+
+        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Realmente deseas eliminar el registro?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true,
+                CancelButtonText = "No",
+                ConfirmButtonText = "Si"
+            });
+
+        var confirm = string.IsNullOrEmpty(result.Value);
+        if (confirm)
+        {
+            return;
+        }
+
         var responseHTTP = await Repository.DeleteAsync($"/api/budgets/{budget.Id}");
 
         if (responseHTTP.Error)
