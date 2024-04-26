@@ -20,28 +20,32 @@
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessage();
-            await sweetAlertService.FireAsync("Error", message);
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        Return();
+        else
+        {
+            Return();
+    
+            var Toast = sweetAlertService.Mixin(new SweetAlertOptions
+                {
 
-        var Toast = sweetAlertService.Mixin(new SweetAlertOptions
-            {
+                    Toast = true,
+                    Position = SweetAlertPosition.BottomEnd,
+                    ShowConfirmButton = true,
+                    Timer = 3000
 
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-             ShowConfirmButton = true,
-            Timer = 3000
+                });
 
-            });
-
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
-
+            await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
+     
+            
+        }
     }
 
     private void Return()
     {
-
+        budgetForm!.FormPostedSuccessfully = true;
         navigationManager.NavigateTo("/budgets");
 
     }

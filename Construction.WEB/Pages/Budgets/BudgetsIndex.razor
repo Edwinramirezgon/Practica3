@@ -1,8 +1,10 @@
-﻿@page "/Budgets"
+﻿@page "/budgets"
 @using Construction.Shared.Entities
 @using Construction.WEB.Repositories
 @using Construction.WEB.Shared
 @inject IRepository Repository
+@inject SweetAlertService sweetAlertService
+@inject NavigationManager navigationManager
 
 
 <h1>Budgets Index</h1>
@@ -48,8 +50,8 @@
                         </td>
                       
                         <td>
-                            <a class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger">Borrar</button>
+                            <a href="/budgets/edit/@budget.Id" class="btn btn-warning">Editar</a>                           
+                            <button class="btn btn-danger" @onclick=@(() => Delete(budget))>Borrar</button>
                         </td>
 
                     </tr>
@@ -69,13 +71,39 @@
 
     protected async override Task OnInitializedAsync()
     {
-
-        var responseHttp = await Repository.GetAsync<List<Budget>>("/api/budgets");
-
-        Budgets = responseHttp.Response!;
+        await Charging();
+    }
 
 
 
+    private async Task Charging()
+    {
+        var responseHTTP = await Repository.GetAsync<List<Budget>>("/api/budgets");
+        Budgets = responseHTTP.Response!;
+
+    }
+
+
+    private async Task Delete(Budget budget)
+    {
+        var responseHTTP = await Repository.DeleteAsync($"/api/budgets/{budget.Id}");
+
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/budgets");
+            }
+            else
+            {
+                var mensajeError = await responseHTTP.GetErrorMessage();
+                await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            await Charging();
+        }
     }
 
 
