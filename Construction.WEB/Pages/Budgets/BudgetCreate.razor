@@ -6,7 +6,7 @@
 
 <h3>Budget Create</h3>
 
-<BudgetForm @ref="budgetForm" Budget="budget" OnSubmit="Create" ReturnAction="Return" />
+<BudgetForm @ref="budgetForm" Budget="budget" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
@@ -15,38 +15,35 @@
 
     private async Task Create()
     {
-        var responseHttp = await repository.Post("/api/budgets", budget);
+        var responseHttp = await repository.PostAsync("/api/budgets", budget);
 
         if (responseHttp.Error)
         {
-            var message = await responseHttp.GetErrorMessage();
+            var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
-            return;
-        }
-        else
-        {
+        }{}
+       
             Return();
-    
-            var Toast = sweetAlertService.Mixin(new SweetAlertOptions
-                {
+        
 
-                    Toast = true,
-                    Position = SweetAlertPosition.BottomEnd,
-                    ShowConfirmButton = true,
-                    Timer = 3000
-
-                });
-
-            await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
-     
-            
-        }
     }
 
     private void Return()
     {
-        budgetForm!.FormPostedSuccessfully = true;
         navigationManager.NavigateTo("/budgets");
+        //budgetForm!.FormPostedSuccessfully = true;
+
+        /* var Toast = sweetAlertService.Mixin(new SweetAlertOptions
+             {
+
+                 Toast = true,
+                 Position = SweetAlertPosition.BottomEnd,
+                 ShowConfirmButton = true,
+                 Timer = 3000
+
+             });
+
+         await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");*/
 
     }
 

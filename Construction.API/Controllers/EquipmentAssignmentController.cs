@@ -20,14 +20,14 @@ namespace Construction.API.Controllers
 
         //Metodo Get - Lista (Read all)
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult> GetAsync()
         {
             return Ok(await _context.EquipmentAssignments.ToListAsync());
         }
 
         //Create
         [HttpPost]
-        public async Task<ActionResult> Post(EquipmentAssignment equipmentassignment)
+        public async Task<ActionResult> PostAsync(EquipmentAssignment equipmentassignment)
         {
             _context.Add(equipmentassignment);
             await _context.SaveChangesAsync();
@@ -36,7 +36,7 @@ namespace Construction.API.Controllers
 
         //Get por ID (Read)
         [HttpGet("id:int")]
-        public async Task<ActionResult> Get(int id)
+        public async Task<ActionResult> GetAsync(int id)
         {
             var equipmentassignment = await _context.EquipmentAssignments.FirstOrDefaultAsync
                 (x => x.Id == id);
@@ -50,7 +50,7 @@ namespace Construction.API.Controllers
 
         //Update
         [HttpPut]
-        public async Task<ActionResult> Put(EquipmentAssignment equipmentassignment)
+        public async Task<ActionResult> PutAsync(EquipmentAssignment equipmentassignment)
         {
             _context.Update(equipmentassignment);
             await _context.SaveChangesAsync();
@@ -59,7 +59,7 @@ namespace Construction.API.Controllers
 
         //Delete
         [HttpDelete("id:int")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
             var deletedrows = await _context.EquipmentAssignments.Where(x => x.Id == id).
                 ExecuteDeleteAsync();

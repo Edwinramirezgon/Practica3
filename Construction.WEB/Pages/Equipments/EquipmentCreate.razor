@@ -15,11 +15,11 @@
 
     private async Task Create()
     {
-        var responseHttp = await repository.Post("/api/equipments", equipment);
+        var responseHttp = await repository.PostAsync("/api/equipments", equipment);
 
         if (responseHttp.Error)
         {
-            var message = await responseHttp.GetErrorMessage();
+            var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message);
             return;
         }

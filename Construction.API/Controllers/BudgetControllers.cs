@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Construction.API.Controllers
 {
     [ApiController]
-    [Route("/api/Budgets")]
+    [Route("/api/budgets")]
     public class BudgetControllers: ControllerBase
     {
 
@@ -20,14 +20,14 @@ namespace Construction.API.Controllers
 
         //Metodo Get - Lista (Read all)
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult> GetAsync()
         {
             return Ok(await _context.Budgets.ToListAsync());
         }
 
         //Create
         [HttpPost]
-        public async Task<ActionResult> Post(Budget budget)
+        public async Task<ActionResult> PostAsync(Budget budget)
         {
             _context.Add(budget);
             await _context.SaveChangesAsync();
@@ -36,7 +36,7 @@ namespace Construction.API.Controllers
 
         //Get por ID (Read)
         [HttpGet("id:int")]
-        public async Task<ActionResult> Get(int id)
+        public async Task<ActionResult> GetAsync(int id)
         {
             var budget = await _context.Budgets.FirstOrDefaultAsync
                 (x => x.Id == id);
@@ -50,7 +50,7 @@ namespace Construction.API.Controllers
 
         //Update
         [HttpPut]
-        public async Task<ActionResult> Put(Budget budget)
+        public async Task<ActionResult> PutAsync(Budget budget)
         {
             _context.Update(budget);
             await _context.SaveChangesAsync();
@@ -59,15 +59,17 @@ namespace Construction.API.Controllers
 
         //Delete
         [HttpDelete("id:int")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            var deletedrows = await _context.Budgets.Where(x => x.Id == id).
-                ExecuteDeleteAsync();
+            var budget = await _context.Budgets.FirstOrDefaultAsync
+                  (x => x.Id == id);
 
-            if (deletedrows == 0)
+            if (budget == null)
             {
                 return NotFound();
             }
+            _context.Remove(budget);
+            await _context.SaveChangesAsync();          
 
             return NoContent();
         }

@@ -11,30 +11,33 @@
 }
 else
 {
-    <BudgetForm @ref="budgetForm" Budget="budget" OnSubmit="Editar" ReturnAction="Return" />
+    <BudgetForm @ref="budgetForm" Budget="budget" OnValidSubmit="Editar" ReturnAction="Return" />
     
 }
 
 @code {
-    [Parameter] public int BudgetId { get; set; }
+    [Parameter] 
+    public int BudgetId { get; set; }
     private Budget budget = new();
     private BudgetForm budgetForm;
 
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine(BudgetId);
-        var responseHTTP = await repository.GetAsync<Budget>($"api/budgets/{BudgetId}");
+      
+        var responseHTTP = await repository.GetAsync<Budget>($"api/budgets/id:int?id={BudgetId}");
 
         if (responseHTTP.Error)
         {
-            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            if (responseHTTP.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
                 navigationManager.NavigateTo("budgets");
+                return;
             }
             else
             {
-                var mensajeError = await responseHTTP.GetErrorMessage();
+                var mensajeError = await responseHTTP.GetErrorMessageAsync();
                 await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+                return;
             }
         }
         else
@@ -50,17 +53,18 @@ else
 
         if (responseHTTP.Error)
         {
-            var mensajeError = await responseHTTP.GetErrorMessage();
+            var mensajeError = await responseHTTP.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
         }
         else
         {
+            budgetForm!.FormPostedSuccessfully = true;
             navigationManager.NavigateTo("budgets");
         }
     }
     private void Return()
     {
-        budgetForm!.FormPostedSuccessfully = true;
+        
         navigationManager.NavigateTo("budgets");
 
     }

@@ -4,7 +4,7 @@ namespace Construction.WEB.Repositories
 {
     public class HttpResponseWrapper<T>
     {
-        public HttpResponseWrapper(T response, bool error, HttpResponseMessage httpResponseMessage)
+        public HttpResponseWrapper(T? response, bool error, HttpResponseMessage httpResponseMessage)
         {
             Error = error;
             Response = response;
@@ -13,31 +13,31 @@ namespace Construction.WEB.Repositories
 
         public bool Error { get; set; }
 
-        public T Response { get; set; }
+        public T? Response { get; set; }
 
         public HttpResponseMessage HttpResponseMessage { get; set; }
 
-        public async Task<string> GetErrorMessage()
+        public async Task<string> GetErrorMessageAsync()
         {
             if (!Error)
             {
                 return null;
             }
 
-            var codigoEstatus = HttpResponseMessage.StatusCode;
-            if (codigoEstatus == HttpStatusCode.NotFound)
+            var StatusCode = HttpResponseMessage.StatusCode;
+            if (StatusCode == HttpStatusCode.NotFound)
             {
                 return "Recurso no encontrado";
             }
-            else if (codigoEstatus == HttpStatusCode.BadRequest)
+            else if (StatusCode == HttpStatusCode.BadRequest)
             {
                 return await HttpResponseMessage.Content.ReadAsStringAsync();
             }
-            else if (codigoEstatus == HttpStatusCode.Unauthorized)
+            else if (StatusCode == HttpStatusCode.Unauthorized)
             {
                 return " Debes loguearte para realizar esta acción";
             }
-            else if (codigoEstatus == HttpStatusCode.Forbidden)
+            else if (StatusCode == HttpStatusCode.Forbidden)
             {
                 return " No tienes permisos para ejecutar esta acción";
             }

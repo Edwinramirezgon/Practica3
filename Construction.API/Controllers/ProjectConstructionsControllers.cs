@@ -19,14 +19,14 @@ namespace Construction.API.Controllers
 
         //Metodo Get - Lista (Read all)
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult> GetAsync()
         {
             return Ok(await _context.ProjectConstructions.ToListAsync());
         }
 
         //Create
         [HttpPost]
-        public async Task<ActionResult> Post(ProjectConstruction projectconstruction)
+        public async Task<ActionResult> PostAsync(ProjectConstruction projectconstruction)
         {
             _context.Add(projectconstruction);
             await _context.SaveChangesAsync();
@@ -35,7 +35,7 @@ namespace Construction.API.Controllers
 
         //Get por ID (Read)
         [HttpGet("id:int")]
-        public async Task<ActionResult> Get(int id)
+        public async Task<ActionResult> GetAsync(int id)
         {
             var projectconstruction = await _context.ProjectConstructions.FirstOrDefaultAsync
                 (x => x.Id == id);
@@ -49,7 +49,7 @@ namespace Construction.API.Controllers
 
         //Update
         [HttpPut]
-        public async Task<ActionResult> Put(ProjectConstruction projectconstruction)
+        public async Task<ActionResult> PutAsync(ProjectConstruction projectconstruction)
         {
             _context.Update(projectconstruction);
             await _context.SaveChangesAsync();
@@ -58,7 +58,7 @@ namespace Construction.API.Controllers
 
         //Delete
         [HttpDelete("id:int")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
             var deletedrows = await _context.ProjectConstructions.Where(x => x.Id == id).
                 ExecuteDeleteAsync();

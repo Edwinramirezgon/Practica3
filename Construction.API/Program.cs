@@ -4,13 +4,20 @@ using Construction.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRazorPages();
+
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = DefaultConnection"));
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
@@ -24,10 +31,6 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
 
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 
-builder.Services.AddSwaggerGen();
-
-
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = DefaultConnection"));
 
 var app = builder.Build();
 
@@ -39,20 +42,18 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-
-app.UseAuthentication();
-
+//app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
+
 
 app.UseCors(x => x
 
 .AllowAnyMethod()
 .AllowAnyHeader()
-.AllowCredentials()
 .SetIsOriginAllowed(origin => true)
+.AllowCredentials()
+
 
 );
 

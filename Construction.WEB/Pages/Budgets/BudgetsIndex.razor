@@ -51,7 +51,7 @@
                       
                         <td>
                             <a href="/budgets/edit/@budget.Id" class="btn btn-warning">Editar</a>                           
-                            <button class="btn btn-danger" @onclick=@(() => Delete(budget))>Borrar</button>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(budget.Id))>Borrar</button>
                         </td>
 
                     </tr>
@@ -84,7 +84,7 @@
     }
 
 
-    private async Task Delete(Budget budget)
+    private async Task Delete(int id)
     {
 
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
@@ -103,7 +103,7 @@
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/budgets/{budget.Id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/budgets/id:int?id={id}");
 
         if (responseHTTP.Error)
         {
@@ -113,7 +113,7 @@
             }
             else
             {
-                var mensajeError = await responseHTTP.GetErrorMessage();
+                var mensajeError = await responseHTTP.GetErrorMessageAsync();
                 await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
             }
         }
