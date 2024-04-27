@@ -23,7 +23,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-      
+
         var responseHTTP = await repository.GetAsync<Budget>($"api/budgets/id:int?id={BudgetId}");
 
         if (responseHTTP.Error)
@@ -56,16 +56,32 @@ else
             var mensajeError = await responseHTTP.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
         }
-        else
-        {
-            budgetForm!.FormPostedSuccessfully = true;
-            navigationManager.NavigateTo("budgets");
-        }
+        budgetForm!.FormPostedSuccessfully = true;
+        navigationManager.NavigateTo("budgets");
+        Toast();
+
     }
+
+    private async Task Toast()
+    {
+
+
+        var Toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+
+            });
+
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro Modificado con exito");
+    }
+
     private void Return()
     {
-        
-        navigationManager.NavigateTo("budgets");
+ 
 
     }
 }

@@ -55,8 +55,7 @@
 
     <button class="btn btn-primary" type="submit">Guardar</button>
 
-    <button class="btn btn-success" onclick="Regresar()">Regresar</button>
-
+ 
     <button class="btn btn-info" type="reset">Limpiar</button>
 
 
@@ -68,8 +67,7 @@
 
 @code {
 
-    private EditContext editContext = null;
-
+    private EditContext editContext = null!;
 
     [EditorRequired]
     [Parameter]
@@ -85,26 +83,18 @@
     [Parameter]
     public EventCallback ReturnAction { get; set; }
 
-    public bool FormPostedSuccessfully { get; set; }
+    public bool FormPostedSuccessfully { get; set; } = false;
 
     protected override void OnInitialized()
     {
         editContext = new(Budget);
     }
 
-    private void Regresar()
-    {
-        navigationManager.NavigateTo("/budgets");
-    }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
     {
         var formWasEdited = editContext.IsModified();
-        if (!formWasEdited)
-        {
-            return;
-        }
-        if (FormPostedSuccessfully)
+        if (!formWasEdited || FormPostedSuccessfully)
         {
             return;
         }
