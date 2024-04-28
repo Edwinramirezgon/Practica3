@@ -1,35 +1,35 @@
-﻿@page "/budgets/edit/{BudgetId:int}"
+﻿@page "/materials/edit/{MaterialId:int}"
 @inject NavigationManager navigationManager
 @inject IRepository repository
 @inject SweetAlertService sweetAlertService
 
-<h3>Editar Presupuesto</h3>
+<h3>Editar Material</h3>
 
-@if (budget is null)
+@if (material is null)
 {
-    <p>El presupuesto es Nulo</p>
+    <p>El Material es Nulo</p>
 }
 else
 {
-    <BudgetForm Budget="budget" OnValidSubmit="Editar" ReturnAction="Return" />
+    <MaterialForm Material="material" OnValidSubmit="Editar" ReturnAction="Return" />
     
 }
 
 @code {
     [Parameter] 
-    public int BudgetId { get; set; }
-    private Budget budget = new();
+    public int MaterialId { get; set; }
+    private Material material = new();
 
     protected override async Task OnInitializedAsync()
     {
 
-        var responseHTTP = await repository.GetAsync<Budget>($"api/budgets/id:int?id={BudgetId}");
+        var responseHTTP = await repository.GetAsync<Material>($"api/Materials/id:int?id={MaterialId}");
 
         if (responseHTTP.Error)
         {
             if (responseHTTP.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("budgets");
+                navigationManager.NavigateTo("Materials");
                 return;
             }
             else
@@ -41,14 +41,14 @@ else
         }
         else
         {
-            budget = responseHTTP.Response;
+            material = responseHTTP.Response;
         }
     }
 
     private async Task Editar()
     {
 
-        var responseHTTP = await repository.PutAsync("api/budgets", budget);
+        var responseHTTP = await repository.PutAsync("api/Materials", material);
 
         if (responseHTTP.Error)
         {
@@ -57,8 +57,8 @@ else
         }
         else
         {
-            Return();
 
+            Return();
             var Toast = sweetAlertService.Mixin(new SweetAlertOptions
                 {
 
@@ -69,16 +69,16 @@ else
 
                 });
 
-            await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Presupuesto Modificado con exito");
-
+            await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Material Modificado con exito");
         }
+
     }
 
    
 
     private void Return()
     {
-        navigationManager.NavigateTo("budgets");
-
+ 
+        navigationManager.NavigateTo("Materials");
     }
 }

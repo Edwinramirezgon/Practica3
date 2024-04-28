@@ -4,45 +4,49 @@
 @inject SweetAlertService sweetAlertService
 
 
-<h3>Project Construction Create</h3>
+<h3>Creacion de Proyecto de Construccion</h3>
 
-<ProjectConstructionForm @ref="projectconstructionForm" ProjectConstruction="projectconstruction" OnSubmit="Create" ReturnAction="Return" />
+<ProjectConstructionForm  ProjectConstruction="projectConstruction" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
-    private ProjectConstruction projectconstruction = new();
-    private ProjectConstructionForm projectconstructionForm;
+    private ProjectConstruction projectConstruction = new();
 
     private async Task Create()
     {
-        var responseHttp = await repository.PostAsync("/api/projectconstructions", projectconstruction);
+        var responseHttp = await repository.PostAsync("/api/ProjectConstructions", projectConstruction);
 
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            await sweetAlertService.FireAsync("Error", message);
-            return;
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
         }
+        else
         Return();
-
-        var Toast = sweetAlertService.Mixin(new SweetAlertOptions
+{        var Toast = sweetAlertService.Mixin(new SweetAlertOptions
             {
 
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-             ShowConfirmButton = true,
-            Timer = 3000
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
 
             });
 
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Proyecto de Construccion creado con exito");}
+
 
     }
 
+    
+
+
     private void Return()
     {
+        navigationManager.NavigateTo("/ProjectConstructions");
 
-        navigationManager.NavigateTo("/projectconstructions");
+
+
 
     }
 

@@ -21,14 +21,8 @@
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
         }
-        Return();
-
-
-    }
-
-    private async Task Toast()
-    {
-
+        else
+       { Return();
 
         var Toast = sweetAlertService.Mixin(new SweetAlertOptions
             {
@@ -40,15 +34,16 @@
 
             });
 
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Asignacion de Maquinaria creada con exito");
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Asignacion de Maquinaria creada con exito");}
+
     }
+
 
 
     private void Return()
     {
         navigationManager.NavigateTo("/EquipmentAssignments");
 
-        Toast();
 
 
     }

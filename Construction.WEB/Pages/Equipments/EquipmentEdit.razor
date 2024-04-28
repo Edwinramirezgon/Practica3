@@ -55,15 +55,9 @@ else
             var mensajeError = await responseHTTP.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
         }
-
-        navigationManager.NavigateTo("Equipments");
-        Toast();
-
-    }
-
-    private async Task Toast()
-    {
-
+        else
+  
+ {       Return();
 
         var Toast = sweetAlertService.Mixin(new SweetAlertOptions
             {
@@ -75,12 +69,16 @@ else
 
             });
 
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Maquinaria Modificada con exito");
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Maquinaria Modificada con exito");}
+
+
     }
+
+
 
     private void Return()
     {
- 
+        navigationManager.NavigateTo("Equipments");
 
     }
 }

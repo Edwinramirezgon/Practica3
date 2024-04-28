@@ -1,35 +1,35 @@
-﻿@page "/budgets/edit/{BudgetId:int}"
+﻿@page "/ProjectConstructions/edit/{ProjectConstructionId:int}"
 @inject NavigationManager navigationManager
 @inject IRepository repository
 @inject SweetAlertService sweetAlertService
 
-<h3>Editar Presupuesto</h3>
+<h3>Editar Proyecto de Construccion</h3>
 
-@if (budget is null)
+@if (projectConstruction is null)
 {
-    <p>El presupuesto es Nulo</p>
+    <p>El Proyecto de Construccion es Nulo</p>
 }
 else
 {
-    <BudgetForm Budget="budget" OnValidSubmit="Editar" ReturnAction="Return" />
+    <ProjectConstructionForm ProjectConstruction="projectConstruction" OnValidSubmit="Editar" ReturnAction="Return" />
     
 }
 
 @code {
     [Parameter] 
-    public int BudgetId { get; set; }
-    private Budget budget = new();
+    public int ProjectConstructionId { get; set; }
+    private ProjectConstruction projectConstruction = new();
 
     protected override async Task OnInitializedAsync()
     {
 
-        var responseHTTP = await repository.GetAsync<Budget>($"api/budgets/id:int?id={BudgetId}");
+        var responseHTTP = await repository.GetAsync<ProjectConstruction>($"api/ProjectConstructions/id:int?id={ProjectConstructionId}");
 
         if (responseHTTP.Error)
         {
             if (responseHTTP.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("budgets");
+                navigationManager.NavigateTo("ProjectConstructions");
                 return;
             }
             else
@@ -41,14 +41,14 @@ else
         }
         else
         {
-            budget = responseHTTP.Response;
+            projectConstruction = responseHTTP.Response;
         }
     }
 
     private async Task Editar()
     {
 
-        var responseHTTP = await repository.PutAsync("api/budgets", budget);
+        var responseHTTP = await repository.PutAsync("api/ProjectConstructions", projectConstruction);
 
         if (responseHTTP.Error)
         {
@@ -57,8 +57,8 @@ else
         }
         else
         {
-            Return();
 
+            Return();
             var Toast = sweetAlertService.Mixin(new SweetAlertOptions
                 {
 
@@ -69,16 +69,16 @@ else
 
                 });
 
-            await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Presupuesto Modificado con exito");
-
+            await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Proyecto de Construccion Modificado con exito");
         }
+
     }
 
    
 
     private void Return()
     {
-        navigationManager.NavigateTo("budgets");
-
+ 
+        navigationManager.NavigateTo("ProjectConstructions");
     }
 }

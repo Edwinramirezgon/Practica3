@@ -20,35 +20,31 @@
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
-        }       
-        Return();        
+        }
+        else
+        {
+            Return();
 
+            var Toast = sweetAlertService.Mixin(new SweetAlertOptions
+                {
 
+                    Toast = true,
+                    Position = SweetAlertPosition.BottomEnd,
+                    ShowConfirmButton = true,
+                    Timer = 3000
+
+                });
+
+            await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Presupuesto creado con exito");
+        }
     }
 
-    private async Task Toast()
-    {
 
-
-        var Toast = sweetAlertService.Mixin(new SweetAlertOptions
-            {
-
-                Toast = true,
-                Position = SweetAlertPosition.BottomEnd,
-                ShowConfirmButton = true,
-                Timer = 3000
-
-            });
-
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Presupuesto creado con exito");
-    }
 
 
     private void Return()
     {
         navigationManager.NavigateTo("/budgets");
-
-        Toast();
 
 
     }

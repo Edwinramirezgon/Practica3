@@ -4,45 +4,48 @@
 @inject SweetAlertService sweetAlertService
 
 
-<h3>Materials Create</h3>
+<h3>Creacion de Material</h3>
 
-<MaterialForm @ref="materialForm" Material="material" OnSubmit="Create" ReturnAction="Return" />
+<MaterialForm Material="material" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
     private Material material = new();
-    private MaterialForm materialForm;
-
+   
     private async Task Create()
     {
-        var responseHttp = await repository.PostAsync("/api/materials", material);
+        var responseHttp = await repository.PostAsync("/api/Materials", material);
 
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            await sweetAlertService.FireAsync("Error", message);
-            return;
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
         }
-        Return();
-
+        else
+{        Return();
         var Toast = sweetAlertService.Mixin(new SweetAlertOptions
             {
 
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-             ShowConfirmButton = true,
-            Timer = 3000
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
 
             });
 
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Material creado con exito");}
+
 
     }
 
+    
+
+
     private void Return()
     {
+        navigationManager.NavigateTo("/Materials");
 
-        navigationManager.NavigateTo("/materials");
+
 
     }
 

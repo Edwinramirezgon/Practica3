@@ -55,16 +55,9 @@ else
         {
             var mensajeError = await responseHTTP.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
-        }
-        navigationManager.NavigateTo("duties");
-        Toast();
+        }else
 
-    }
-
-    private async Task Toast()
-    {
-
-
+        {Return();
         var Toast = sweetAlertService.Mixin(new SweetAlertOptions
             {
 
@@ -75,12 +68,14 @@ else
 
             });
 
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tarea Modificada con exito");
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tarea Modificada con exito");}
     }
+
+  
 
     private void Return()
     {
  
-
+        navigationManager.NavigateTo("duties");
     }
 }

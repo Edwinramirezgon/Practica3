@@ -55,30 +55,27 @@ else
             var mensajeError = await responseHTTP.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
         }
-        navigationManager.NavigateTo("ConstructionTeams");
-        Toast();
+        else
+        {
 
+            Return();
+            var Toast = sweetAlertService.Mixin(new SweetAlertOptions
+                {
+
+                    Toast = true,
+                    Position = SweetAlertPosition.BottomEnd,
+                    ShowConfirmButton = true,
+                    Timer = 3000
+
+                });
+
+            await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Equipo de Construccion Modificado con exito");
+        }
     }
 
-    private async Task Toast()
-    {
-
-
-        var Toast = sweetAlertService.Mixin(new SweetAlertOptions
-            {
-
-                Toast = true,
-                Position = SweetAlertPosition.BottomEnd,
-                ShowConfirmButton = true,
-                Timer = 3000
-
-            });
-
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Equipo de Construccion Modificado con exito");
-    }
 
     private void Return()
     {
-
+        navigationManager.NavigateTo("ConstructionTeams");
     }
 }
