@@ -2,8 +2,7 @@
 @inject NavigationManager navigationManager
 
 
-<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"/>
-<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+<EditForm Model="Budget" OnValidSubmit="OnValidSubmit">
 
     <DataAnnotationsValidator/>
 
@@ -67,7 +66,7 @@
 
 @code {
 
-    private EditContext editContext = null!;
+
 
     [EditorRequired]
     [Parameter]
@@ -83,33 +82,5 @@
     [Parameter]
     public EventCallback ReturnAction { get; set; }
 
-    public bool FormPostedSuccessfully { get; set; } = false;
-
-    protected override void OnInitialized()
-    {
-        editContext = new(Budget);
-    }
-
-
-    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
-    {
-        var formWasEdited = editContext.IsModified();
-        if (!formWasEdited || FormPostedSuccessfully)
-        {
-            return;
-        }
-        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
-            {
-                Title = "Confirmación",
-                Text = "¿Deseas abandonar la página y perder los cambios?",
-                Icon = SweetAlertIcon.Warning,
-                ShowCancelButton = true
-            });
-        var confirm = !string.IsNullOrEmpty(result.Value);
-        if (confirm)
-        {
-            return;
-        }
-        context.PreventNavigation();
-    }
+   
 }

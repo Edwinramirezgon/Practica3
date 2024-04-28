@@ -6,12 +6,11 @@
 
 <h3>Creacion De Presupuesto</h3>
 
-<BudgetForm @ref="budgetForm" Budget="budget" OnValidSubmit="Create" ReturnAction="Return" />
+<BudgetForm  Budget="budget" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
     private Budget budget = new();
-    private BudgetForm budgetForm;
 
     private async Task Create()
     {
@@ -47,7 +46,6 @@
 
     private void Return()
     {
-        budgetForm.FormPostedSuccessfully = true;
         navigationManager.NavigateTo("/budgets");
 
         Toast();

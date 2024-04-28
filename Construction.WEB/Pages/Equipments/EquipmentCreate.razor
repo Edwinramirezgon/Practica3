@@ -4,45 +4,53 @@
 @inject SweetAlertService sweetAlertService
 
 
-<h3>Equipments Create</h3>
+<h3>Creacion de Maquinaria</h3>
 
-<EquipmentForm @ref="equipmentForm" Equipment="equipment" OnSubmit="Create" ReturnAction="Return" />
+<EquipmentForm Equipment="equipment" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
     private Equipment equipment = new();
-    private EquipmentForm equipmentForm;
+
 
     private async Task Create()
     {
-        var responseHttp = await repository.PostAsync("/api/equipments", equipment);
+        var responseHttp = await repository.PostAsync("/api/Equipments", equipment);
 
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            await sweetAlertService.FireAsync("Error", message);
-            return;
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
         }
         Return();
+
+
+    }
+
+    private async Task Toast()
+    {
+
 
         var Toast = sweetAlertService.Mixin(new SweetAlertOptions
             {
 
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-             ShowConfirmButton = true,
-            Timer = 3000
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
 
             });
 
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
-
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Maquinaria creada con exito");
     }
+
 
     private void Return()
     {
+        navigationManager.NavigateTo("/Equipments");
 
-        navigationManager.NavigateTo("/equipments");
+        Toast();
+
 
     }
 

@@ -4,18 +4,18 @@
 @inject SweetAlertService sweetAlertService
 
 
-<h3>Dutie Create</h3>
+<h3>Creacion De Tareas</h3>
 
-<DutieForm @ref="dutieForm" Dutie="dutie" OnValidSubmit="Create" ReturnAction="Return" />
+<DutieForm dutie="duties" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
-    private Dutie dutie = new();
+    private Dutie duties = new();
     private DutieForm dutieForm;
 
     private async Task Create()
     {
-        var responseHttp = await repository.PostAsync("/api/duties", dutie);
+        var responseHttp = await repository.PostAsync("/api/duties", duties);
 
         if (responseHttp.Error)
         {
@@ -47,7 +47,6 @@
 
     private void Return()
     {
-        dutieForm.FormPostedSuccessfully = true;
         navigationManager.NavigateTo("/duties");
 
         Toast();
@@ -56,4 +55,3 @@
     }
 
 }
-

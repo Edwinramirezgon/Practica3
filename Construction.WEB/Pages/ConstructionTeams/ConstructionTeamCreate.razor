@@ -6,7 +6,7 @@
 
 <h3>Creacion De Equipo de Construccion</h3>
 
-<ConstructionTeamForm @ref="constructionteamForm" ConstructionTeam="constructionteam" OnValidSubmit="Create" ReturnAction="Return" />
+<ConstructionTeamForm  ConstructionTeam="constructionteam" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
@@ -47,7 +47,6 @@
 
     private void Return()
     {
-        constructionteamForm.FormPostedSuccessfully = true;
         navigationManager.NavigateTo("/constructionteams");
 
         Toast();

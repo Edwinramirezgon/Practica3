@@ -11,7 +11,7 @@
 }
 else
 {
-    <ConstructionTeamForm @ref="constructionteamForm" ConstructionTeam="constructionteam" OnValidSubmit="Editar" ReturnAction="Return" />
+    <ConstructionTeamForm  ConstructionTeam="constructionteam" OnValidSubmit="Editar" ReturnAction="Return" />
     
 }
 
@@ -55,7 +55,6 @@ else
             var mensajeError = await responseHTTP.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
         }
-        constructionteamForm!.FormPostedSuccessfully = true;
         navigationManager.NavigateTo("ConstructionTeams");
         Toast();
 

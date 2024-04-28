@@ -1,4 +1,4 @@
-﻿@page "/Duties"
+﻿@page "/duties"
 @using Construction.Shared.Entities
 @using Construction.WEB.Repositories
 @using Construction.WEB.Shared
@@ -7,9 +7,9 @@
 @inject NavigationManager navigationManager
 
 
-<h1>Duties Index</h1>
+<h1>Tareas</h1>
 <div class="mb-3">
-    <a class="btn btn-primary" href="/Duties/create">New Dutie</a>
+    <a class="btn btn-primary" href="/duties/create">Nuevo Presupuesto</a>
 </div>
 
 <GenericList MyList="Duties">
@@ -18,7 +18,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Duties</th>
+                    <th>Tareas</th>
                     <th></th>
 
                 </tr>
@@ -35,19 +35,19 @@
                         </td>
                         <td>
                             @dutie.StartTime
-                        </td>
-                        <td>
+                            </td>
+                            <td>
                             @dutie.EndTime
                         </td>
                         <td>
                             @dutie.Remarks
-                        </td>
+                            </td>
                         <td>
                             @dutie.ProjectConstructionsId
-                        </td>
-
+                            </td>                       
+                      
                         <td>
-                            <a href="/duties/edit/@dutie.Id" class="btn btn-warning">Editar</a>
+                            <a href="/duties/edit/@dutie.Id" class="btn btn-warning">Editar</a>                           
                             <button class="btn btn-danger" @onclick=@(() => Delete(dutie.Id))>Borrar</button>
                         </td>
 
@@ -57,7 +57,7 @@
         </table>
 
     </Body>
-
+ 
 </GenericList>
 
 

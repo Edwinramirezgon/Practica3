@@ -2,47 +2,49 @@
 @inject NavigationManager navigationManager
 
 
-<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
-<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
 
-    <DataAnnotationsValidator />
+<EditForm Model="dutie" OnValidSubmit="OnValidSubmit">
+
+    <DataAnnotationsValidator/>
 
     <div class="mb-3">
         <label>Nombre</label>
         <div>
-            <InputText width="10" @bind-Value="@Dutie.Name"></InputText>
-            <ValidationMessage For="@(() => @Dutie.Name)" />
+            <InputText width="10" @bind-Value="@dutie.Name"></InputText>
+            <ValidationMessage For="@(() => @dutie.Name)" />
         </div>
         <label>Descripcion</label>
         <div>
-            <InputText width="10" @bind-Value="@Dutie.Description"></InputText>
-            <ValidationMessage For="@(() => @Dutie.Description)" />
+            <InputText width="10" @bind-Value="@dutie.Description"></InputText>
+            <ValidationMessage For="@(() => @dutie.Description)" />
         </div>
-        <label>Tiempo de Comienzo</label>
+        <label>Teimpo de Comienzo</label>
         <div>
-            <InputDate width="10" @bind-Value="@Dutie.StartTime"></InputDate>
-            <ValidationMessage For="@(() => @Dutie.StartTime)" />
+            <InputDate width="10" @bind-Value="@dutie.StartTime"></InputDate>
+            <ValidationMessage For="@(() => @dutie.StartTime)" />
         </div>
-        <label>Tiempo de Terminacion</label>
+        <label>Teimpo de Finalizacion</label>
         <div>
-            <InputDate width="10" @bind-Value="@Dutie.EndTime"></InputDate>
-            <ValidationMessage For="@(() => @Dutie.EndTime)" />
+            <InputDate width="10" @bind-Value="@dutie.EndTime"></InputDate>
+            <ValidationMessage For="@(() => @dutie.EndTime)" />
         </div>
         <label>Comentarios</label>
         <div>
-            <InputText width="10" @bind-Value="@Dutie.Remarks"></InputText>
-            <ValidationMessage For="@(() => @Dutie.Remarks)" />
+            <InputText width="10" @bind-Value="@dutie.Remarks"></InputText>
+            <ValidationMessage For="@(() => @dutie.Remarks)" />
         </div>
-        <label>Id del proyecto de construccion</label>
+        <label>Id del Proyecto de Construccion</label>
         <div>
-            <InputNumber width="10" @bind-Value="@Dutie.ProjectConstructionsId"></InputNumber>
-            <ValidationMessage For="@(() => @Dutie.ProjectConstructionsId)" />
+            <InputNumber width="10" @bind-Value="@dutie.ProjectConstructionsId"></InputNumber>
+            <ValidationMessage For="@(() => @dutie.ProjectConstructionsId)" />
         </div>
+
+        
     </div>
 
     <button class="btn btn-primary" type="submit">Guardar</button>
 
-
+ 
     <button class="btn btn-info" type="reset">Limpiar</button>
 
 
@@ -54,11 +56,10 @@
 
 @code {
 
-    private EditContext editContext = null!;
 
     [EditorRequired]
     [Parameter]
-    public Dutie Dutie { get; set; }
+    public Dutie dutie { get; set; }
 
 
     [EditorRequired]
@@ -70,33 +71,5 @@
     [Parameter]
     public EventCallback ReturnAction { get; set; }
 
-    public bool FormPostedSuccessfully { get; set; } = false;
 
-    protected override void OnInitialized()
-    {
-        editContext = new(Dutie);
-    }
-
-
-    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
-    {
-        var formWasEdited = editContext.IsModified();
-        if (!formWasEdited || FormPostedSuccessfully)
-        {
-            return;
-        }
-        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
-            {
-                Title = "Confirmación",
-                Text = "¿Deseas abandonar la página y perder los cambios?",
-                Icon = SweetAlertIcon.Warning,
-                ShowCancelButton = true
-            });
-        var confirm = !string.IsNullOrEmpty(result.Value);
-        if (confirm)
-        {
-            return;
-        }
-        context.PreventNavigation();
-    }
 }

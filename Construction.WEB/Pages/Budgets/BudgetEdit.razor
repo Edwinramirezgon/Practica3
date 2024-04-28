@@ -11,7 +11,7 @@
 }
 else
 {
-    <BudgetForm @ref="budgetForm" Budget="budget" OnValidSubmit="Editar" ReturnAction="Return" />
+    <BudgetForm Budget="budget" OnValidSubmit="Editar" ReturnAction="Return" />
     
 }
 
@@ -19,7 +19,6 @@ else
     [Parameter] 
     public int BudgetId { get; set; }
     private Budget budget = new();
-    private BudgetForm budgetForm;
 
     protected override async Task OnInitializedAsync()
     {
@@ -56,7 +55,7 @@ else
             var mensajeError = await responseHTTP.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
         }
-        budgetForm!.FormPostedSuccessfully = true;
+
         navigationManager.NavigateTo("budgets");
         Toast();
 

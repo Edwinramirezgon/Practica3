@@ -3,11 +3,12 @@
 @using Construction.WEB.Repositories
 @using Construction.WEB.Shared
 @inject IRepository Repository
+@inject SweetAlertService sweetAlertService
+@inject NavigationManager navigationManager
 
-
-<h1>Equipments Index</h1>
+<h1>Maquinaria</h1>
 <div class="mb-3">
-    <a class="btn btn-primary" href="/equipments/create">New Equipment</a>
+    <a class="btn btn-primary" href="/equipments/create">Nueva Maquinaria</a>
 </div>
 
 <GenericList MyList="Equipments">
@@ -48,8 +49,8 @@
                         </td>
 
                         <td>
-                            <a class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger">Borrar</button>
+                            <a href="/equipments/edit/@equipment.Id" class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(equipment.Id))>Borrar</button>
                         </td>
 
                     </tr>
@@ -69,13 +70,56 @@
 
     protected async override Task OnInitializedAsync()
     {
-
-        var responseHttp = await Repository.GetAsync<List<Equipment>>("/api/equipments");
-
-        Equipments = responseHttp.Response!;
+        await Charging();
+    }
 
 
 
+    private async Task Charging()
+    {
+        var responseHTTP = await Repository.GetAsync<List<Equipment>>("/api/Equipments");
+        Equipments = responseHTTP.Response!;
+
+    }
+
+
+    private async Task Delete(int id)
+    {
+
+        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Realmente deseas eliminar el registro?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true,
+                CancelButtonText = "No",
+                ConfirmButtonText = "Si"
+            });
+
+        var confirm = string.IsNullOrEmpty(result.Value);
+        if (confirm)
+        {
+            return;
+        }
+
+        var responseHTTP = await Repository.DeleteAsync($"/api/Equipments/id:int?id={id}");
+
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/Equipments");
+            }
+            else
+            {
+                var mensajeError = await responseHTTP.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            await Charging();
+        }
     }
 
 

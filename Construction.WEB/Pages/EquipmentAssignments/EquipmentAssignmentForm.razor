@@ -1,4 +1,6 @@
-﻿<EditForm Model="EquipmentAssignment" OnSubmit="OnSubmit">
+﻿
+
+<EditForm Model="EquipmentAssignment" OnValidSubmit="OnValidSubmit">
 
     <DataAnnotationsValidator />
 
@@ -40,7 +42,7 @@
 
     [EditorRequired]
     [Parameter]
-    public EventCallback OnSubmit { get; set; }
+    public EventCallback OnValidSubmit { get; set; }
 
 
     [EditorRequired]

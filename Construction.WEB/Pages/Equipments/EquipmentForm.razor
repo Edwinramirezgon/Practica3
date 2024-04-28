@@ -1,4 +1,7 @@
-﻿<EditForm Model="Equipment" OnSubmit="OnSubmit">
+﻿@inject SweetAlertService sweetAlertService;
+@inject NavigationManager navigationManager
+
+<EditForm Model="Equipment" OnSubmit="OnValidSubmit">
 
     <DataAnnotationsValidator />
 
@@ -42,8 +45,6 @@
 
     <button class="btn btn-primary" type="submit">Guardar</button>
 
-    <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
-
     <button class="btn btn-info" type="reset">Limpiar</button>
 
 
@@ -64,7 +65,7 @@
 
     [EditorRequired]
     [Parameter]
-    public EventCallback OnSubmit { get; set; }
+    public EventCallback OnValidSubmit { get; set; }
 
 
     [EditorRequired]
