@@ -6,7 +6,7 @@
 
 <h3>Dutie Create</h3>
 
-<DutieForm @ref="dutieForm" Dutie="dutie" OnSubmit="Create" ReturnAction="Return" />
+<DutieForm @ref="dutieForm" Dutie="dutie" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
@@ -20,30 +20,40 @@
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            await sweetAlertService.FireAsync("Error", message);
-            return;
-        }
-        Return();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+        }       
+        Return();        
+
+
+    }
+
+    private async Task Toast()
+    {
+
 
         var Toast = sweetAlertService.Mixin(new SweetAlertOptions
             {
 
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-             ShowConfirmButton = true,
-            Timer = 3000
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
 
             });
 
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
-
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tarea creada con exito");
     }
+
 
     private void Return()
     {
-
+        dutieForm.FormPostedSuccessfully = true;
         navigationManager.NavigateTo("/duties");
+
+        Toast();
+
 
     }
 
 }
+

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Construction.API.Controllers
 {
     [ApiController]
-    [Route("/api/ConstructionTeams")]
+    [Route("/api/constructionteams")]
     public class ConstructionTeamControllers : ControllerBase
     {
 

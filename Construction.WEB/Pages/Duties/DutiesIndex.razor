@@ -3,6 +3,8 @@
 @using Construction.WEB.Repositories
 @using Construction.WEB.Shared
 @inject IRepository Repository
+@inject SweetAlertService sweetAlertService
+@inject NavigationManager navigationManager
 
 
 <h1>Duties Index</h1>
@@ -45,8 +47,8 @@
                         </td>
 
                         <td>
-                            <a class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger">Borrar</button>
+                            <a href="/duties/edit/@dutie.Id" class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(dutie.Id))>Borrar</button>
                         </td>
 
                     </tr>
@@ -66,14 +68,59 @@
 
     protected async override Task OnInitializedAsync()
     {
-
-        var responseHttp = await Repository.GetAsync<List<Dutie>>("/api/duties");
-
-        Duties = responseHttp.Response!;
+        await Charging();
+    }
 
 
+
+    private async Task Charging()
+    {
+        var responseHTTP = await Repository.GetAsync<List<Dutie>>("/api/duties");
+        Duties = responseHTTP.Response!;
 
     }
+
+
+    private async Task Delete(int id)
+    {
+
+        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Realmente deseas eliminar el registro?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true,
+                CancelButtonText = "No",
+                ConfirmButtonText = "Si"
+            });
+
+        var confirm = string.IsNullOrEmpty(result.Value);
+        if (confirm)
+        {
+            return;
+        }
+
+        var responseHTTP = await Repository.DeleteAsync($"/api/duties/id:int?id={id}");
+
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/duties");
+            }
+            else
+            {
+                var mensajeError = await responseHTTP.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            await Charging();
+        }
+    }
+
+
 
 
 

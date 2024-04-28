@@ -1,36 +1,36 @@
-﻿@page "/budgets/edit/{BudgetId:int}"
+﻿@page "/constructionteams/edit/{constructionteamId:int}"
 @inject NavigationManager navigationManager
 @inject IRepository repository
 @inject SweetAlertService sweetAlertService
 
-<h3>Editar Presupuesto</h3>
+<h3>Editar Equipo de Construccion</h3>
 
-@if (budget is null)
+@if (constructionteam is null)
 {
-    <p>El presupuesto es Nulo</p>
+    <p>El Equipo de Construccion es Nulo</p>
 }
 else
 {
-    <BudgetForm @ref="budgetForm" Budget="budget" OnValidSubmit="Editar" ReturnAction="Return" />
+    <ConstructionTeamForm @ref="constructionteamForm" ConstructionTeam="constructionteam" OnValidSubmit="Editar" ReturnAction="Return" />
     
 }
 
 @code {
     [Parameter] 
-    public int BudgetId { get; set; }
-    private Budget budget = new();
-    private BudgetForm budgetForm;
+    public int constructionteamId { get; set; }
+    private ConstructionTeam constructionteam = new();
+    private ConstructionTeamForm constructionteamForm;
 
     protected override async Task OnInitializedAsync()
     {
 
-        var responseHTTP = await repository.GetAsync<Budget>($"api/budgets/id:int?id={BudgetId}");
+        var responseHTTP = await repository.GetAsync<ConstructionTeam>($"api/constructionteams/id:int?id={constructionteamId}");
 
         if (responseHTTP.Error)
         {
             if (responseHTTP.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("budgets");
+                navigationManager.NavigateTo("constructionteams");
                 return;
             }
             else
@@ -42,22 +42,21 @@ else
         }
         else
         {
-            budget = responseHTTP.Response;
+            constructionteam = responseHTTP.Response;
         }
     }
 
     private async Task Editar()
     {
-
-        var responseHTTP = await repository.PutAsync("api/budgets", budget);
+        var responseHTTP = await repository.PutAsync("api/constructionteams", constructionteam);
 
         if (responseHTTP.Error)
         {
             var mensajeError = await responseHTTP.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
         }
-        budgetForm!.FormPostedSuccessfully = true;
-        navigationManager.NavigateTo("budgets");
+        constructionteamForm!.FormPostedSuccessfully = true;
+        navigationManager.NavigateTo("ConstructionTeams");
         Toast();
 
     }
@@ -76,12 +75,11 @@ else
 
             });
 
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Presupuesto Modificado con exito");
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Equipo de Construccion Modificado con exito");
     }
 
     private void Return()
     {
- 
 
     }
 }

@@ -4,45 +4,54 @@
 @inject SweetAlertService sweetAlertService
 
 
-<h3>Construction Team Create</h3>
+<h3>Creacion De Equipo de Construccion</h3>
 
-<ConstructionTeamForm @ref="constructionTeamForm" ConstructionTeam="constructionTeam" OnSubmit="Create" ReturnAction="Return" />
+<ConstructionTeamForm @ref="constructionteamForm" ConstructionTeam="constructionteam" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
-    private ConstructionTeam constructionTeam = new();
-    private ConstructionTeamForm constructionTeamForm;
+    private ConstructionTeam constructionteam = new();
+    private ConstructionTeamForm constructionteamForm;
 
     private async Task Create()
     {
-        var responseHttp = await repository.PostAsync("/api/constructionteams", constructionTeam);
+        var responseHttp = await repository.PostAsync("/api/constructionteams", constructionteam);
 
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            await sweetAlertService.FireAsync("Error", message);
-            return;
-        }
-        Return();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+        }       
+        Return();        
+
+
+    }
+
+    private async Task Toast()
+    {
+
 
         var Toast = sweetAlertService.Mixin(new SweetAlertOptions
             {
 
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-             ShowConfirmButton = true,
-            Timer = 3000
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
 
             });
 
-        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
-
+        await Toast.FireAsync(icon: SweetAlertIcon.Success, message: "Equipo de Construccion creado con exito");
     }
+
 
     private void Return()
     {
-
+        constructionteamForm.FormPostedSuccessfully = true;
         navigationManager.NavigateTo("/constructionteams");
+
+        Toast();
+
 
     }
 
