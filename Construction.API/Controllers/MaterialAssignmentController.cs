@@ -35,7 +35,7 @@ namespace Construction.API.Controllers
         }
 
         //Get por ID (Read)
-        [HttpGet("id:int")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult> GetAsync(int id)
         {
             var materialassignment = await _context.MaterialAssignments.FirstOrDefaultAsync
@@ -58,7 +58,7 @@ namespace Construction.API.Controllers
         }
 
         //Delete
-        [HttpDelete("id:int")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             var deletedrows = await _context.MaterialAssignments.Where(x => x.Id == id).

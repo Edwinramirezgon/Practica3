@@ -97,7 +97,7 @@
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/Materials/id:int?id={id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/Materials/{id}");
 
         if (responseHTTP.Error)
         {

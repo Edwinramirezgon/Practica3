@@ -24,7 +24,7 @@ else
     protected override async Task OnInitializedAsync()
     {
 
-        var responseHTTP = await repository.GetAsync<ConstructionTeam>($"api/constructionteams/id:int?id={constructionteamId}");
+        var responseHTTP = await repository.GetAsync<ConstructionTeam>($"api/constructionteams/{constructionteamId}");
 
         if (responseHTTP.Error)
         {

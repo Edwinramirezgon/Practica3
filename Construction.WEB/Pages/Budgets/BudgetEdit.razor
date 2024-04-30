@@ -23,7 +23,7 @@ else
     protected override async Task OnInitializedAsync()
     {
 
-        var responseHTTP = await repository.GetAsync<Budget>($"api/budgets/id:int?id={BudgetId}");
+        var responseHTTP = await repository.GetAsync<Budget>($"api/budgets/{BudgetId}");
 
         if (responseHTTP.Error)
         {

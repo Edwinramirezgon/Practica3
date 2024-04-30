@@ -95,12 +95,13 @@
             });
 
         var confirm = string.IsNullOrEmpty(result.Value);
+
         if (confirm)
         {
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/ProjectConstructions/id:int?id={id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/ProjectConstructions/{id}");
 
         if (responseHTTP.Error)
         {

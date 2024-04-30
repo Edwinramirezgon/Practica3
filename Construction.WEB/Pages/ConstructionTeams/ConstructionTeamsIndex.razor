@@ -94,7 +94,7 @@
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/ConstructionTeams/id:int?id={id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/ConstructionTeams/{id}");
 
         if (responseHTTP.Error)
         {

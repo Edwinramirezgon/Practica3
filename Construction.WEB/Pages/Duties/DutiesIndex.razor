@@ -100,7 +100,7 @@
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/duties/id:int?id={id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/duties/{id}");
 
         if (responseHTTP.Error)
         {
