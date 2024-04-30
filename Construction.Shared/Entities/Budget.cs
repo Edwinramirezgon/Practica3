@@ -15,22 +15,29 @@ namespace Construction.Shared.Entities
 
         public int Id { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         [Display(Name = "Presupuesto equipo de construccion ")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public double BudgetConstructionTeam { get; set; }
 
+
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         [Display(Name = "Presupuesto de tareas ")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public double BudgetDutie { get; set; }
 
+
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         [Display(Name = "Presupuesto de maquinaria ")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public double BudgetEquipment { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         [Display(Name = "Presupuesto proyecto de construccion ")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public double BudgetProyectConstruction { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         [Display(Name = "Presupuesto total ")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public double BudgetTotal { get; set; }

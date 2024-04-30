@@ -35,8 +35,6 @@ namespace Construction.Shared.Entities
         [EmailAddress(ErrorMessage = "Digite un Email válido")]
         public string Email { get; set; }
 
-        public string FixedPhone { get; set; }
-
         public string CellPhone { get; set; }
 
 

@@ -47,8 +47,10 @@
                             </td>                       
                       
                         <td>
-                            <a href="/duties/edit/@dutie.Id" class="btn btn-warning">Editar</a>                           
-                            <button class="btn btn-danger" @onclick=@(() => Delete(dutie.Id))>Borrar</button>
+                            <a href="/duties/edit/@dutie.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(dutie.Id))>Borrar <i class="bi bi-trash3"></i></button>
+
+
                         </td>
 
                     </tr>

@@ -18,6 +18,7 @@ namespace Construction.Shared.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Name { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         public double RequiredQuantity { get; set; }
 
         [Display(Name = "Proveedor")]
