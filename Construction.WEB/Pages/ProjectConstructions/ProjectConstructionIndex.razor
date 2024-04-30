@@ -47,8 +47,9 @@
                         </td>
 
                         <td>
-                            <a href="/projectconstructions/edit/@projectconstruction.Id" class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(projectconstruction.Id))>Borrar</button>
+                            <a href="/projectconstructions/edit/@projectconstruction.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(projectconstruction.Id))>Borrar <i class="bi bi-trash3"></i></button>
+
                         </td>
 
                     </tr>

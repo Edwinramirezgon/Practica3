@@ -30,6 +30,7 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
 }).AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IUserHelper, UserHelper>();
+//builder.Services.AddTransient<SeedDb>;
 
 
 var app = builder.Build();
@@ -42,7 +43,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-//app.UseAuthentication();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
