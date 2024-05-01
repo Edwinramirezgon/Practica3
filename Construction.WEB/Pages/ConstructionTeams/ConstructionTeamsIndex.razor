@@ -10,7 +10,7 @@
 
 
 <div class="mb-3">
-    <a class="btn btn-primary" href="/constructionteams/create">Nuevo Equipo de Construccion</a>
+    <a class="btn btn-primary" href="/constructionteams/create"><i class="bi bi-plus-circle"></i>  Nuevo Equipo de Construccion </a>
 </div>
 
 <GenericList MyList="ConstructionTeams">
@@ -44,7 +44,7 @@
                       
                         <td>
                             <a href="/constructionteams/edit/@constructionteam.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(constructionteam.Id))>Borrar <i class="bi bi-trash3"></i></button>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(constructionteam))>Borrar <i class="bi bi-trash3"></i></button>
 
                         </td>
 
@@ -76,13 +76,13 @@
     }
 
 
-    private async Task Delete(int id)
+    private async Task Delete(ConstructionTeam constructionTeam)
     {
 
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = "¿Realmente deseas eliminar el registro?",
+                Text = $"¿Realmente deseas eliminar el equipo de construccion: {constructionTeam.Name}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
                 CancelButtonText = "No",
@@ -95,7 +95,7 @@
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/ConstructionTeams/{id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/ConstructionTeams/{constructionTeam.Id}");
 
         if (responseHTTP.Error)
         {
@@ -112,6 +112,16 @@
         else
         {
             await Charging();
+
+            await Charging();
+
+            var toast = sweetAlertService.Mixin(new SweetAlertOptions
+                {
+                    Toast = true,
+                    ShowConfirmButton = true,
+                    Timer = 3000
+                });
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Equipo de construccion borrado con éxito.");
         }
     }
 

@@ -9,7 +9,7 @@
 
 <h1>Tareas</h1>
 <div class="mb-3">
-    <a class="btn btn-primary" href="/duties/create">Nueva Tarea</a>
+    <a class="btn btn-primary" href="/duties/create"><i class="bi bi-plus-circle"></i>  Nueva Tarea </a>
 </div>
 
 <GenericList MyList="Duties">
@@ -48,7 +48,7 @@
                       
                         <td>
                             <a href="/duties/edit/@dutie.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(dutie.Id))>Borrar <i class="bi bi-trash3"></i></button>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(dutie))>Borrar <i class="bi bi-trash3"></i></button>
 
 
                         </td>
@@ -83,13 +83,13 @@
     }
 
 
-    private async Task Delete(int id)
+    private async Task Delete(Dutie dutie)
     {
 
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = "¿Realmente deseas eliminar el registro?",
+                Text = $"¿Realmente deseas eliminar la tarea: {dutie.Name}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
                 CancelButtonText = "No",
@@ -102,7 +102,7 @@
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/duties/{id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/duties/{dutie.Id}");
 
         if (responseHTTP.Error)
         {
@@ -119,6 +119,16 @@
         else
         {
             await Charging();
+
+                       var toast = sweetAlertService.Mixin(new SweetAlertOptions
+                {
+                    Toast = true,
+                    ShowConfirmButton = true,
+                    Timer = 3000,
+                    Position = SweetAlertPosition.BottomEnd
+                });
+             toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tarea borrada con éxito.");
+        }
         }
     }
 
@@ -126,4 +136,4 @@
 
 
 
-}
+

@@ -2,6 +2,8 @@
 using Construction.Shared.Entities;
 using Construction.Shared.Enums;
 using Microsoft.AspNetCore.SignalR.Protocol;
+using System.Diagnostics.Eventing.Reader;
+using System.Diagnostics.Metrics;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Construction.API.Data
@@ -13,65 +15,99 @@ namespace Construction.API.Data
         private readonly IUserHelper _userHelper;
 
 
+
         public SeedDb(DataContext context, IUserHelper userHelper)
         {
             _context = context;
             _userHelper = userHelper;
+
+
+
         }
+
+
+
 
         public async Task SeedAsync()
         {
 
+
             await _context.Database.EnsureCreatedAsync();
+
+            await CheckProjectConstructionsAsync();
+
+          
             await CheckRoleAsync();
 
-            await CheckUserAsync("1010", "Super", "Admin", "Edwinramirezgon@gmail.com", "3137778067", "carr 42a 78a 17", UserType.Admin);
+            await CheckUserAsync("1010", "Super", "Admin", "orlapez@gnmail.com", "3015555555", "Cr 25 8965", UserType.Admin);
 
 
-
-
-
-
+        }
+        private async Task CheckProjectConstructionsAsync()
+        {
+            if (!_context.ProjectConstructions.Any())
+            {
+                _context.ProjectConstructions.Add(new ProjectConstruction { Name = "Changualito", Description = "Descripcion",});
+                _context.ProjectConstructions.Add(new ProjectConstruction { Name = "Changualo", Description = "Descripcion", });
+            }
+            await _context.SaveChangesAsync();
         }
 
         private async Task CheckRoleAsync()
         {
 
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
-
             await _userHelper.CheckRoleAsync(UserType.User.ToString());
 
         }
 
-        private async Task CheckUserAsync(string document, string firstname, string lastname, string Email, string phone, string address, UserType usertype)
+        private async Task<User> CheckUserAsync(string document, string firstname, string lastname, string email, string phone, string address, UserType userType)
         {
 
 
-            var user = await _userHelper.GetUserAsync(Email);
+            var user = await _userHelper.GetUserAsync(email);
+
             if (user == null)
             {
 
 
-                /*user = new User
+
+                user = new User
                 {
+
                     Document = document,
                     FirstName = firstname,
                     LastName = lastname,
-                    Email = Email,
-                    CellPhone = phone,
+                    Email = email,
+                    PhoneNumber = phone,
+                    UserName = email,
                     Address = address,
-                    UserType=usertype,                };
-            };*/
+                    UserType = userType,
+
+
+
+
+
+                };
 
                 await _userHelper.AddUserAsync(user, "123456");
-                await _userHelper.AddUserToRoleAsync(user, usertype.ToString());
+                await _userHelper.AddUserToRoleAsync(user, userType.ToString());
+
+
+
+
 
 
 
             }
 
 
+            return user;
+
+
 
         }
+
+     
     }
 }

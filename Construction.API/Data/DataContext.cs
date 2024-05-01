@@ -1,6 +1,7 @@
 ﻿using Construction.Shared.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 
 namespace Construction.API.Data
 {
@@ -24,6 +25,7 @@ namespace Construction.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
         }
 
     }

@@ -8,7 +8,7 @@
 
 <h1>Maquinaria</h1>
 <div class="mb-3">
-    <a class="btn btn-primary" href="/equipments/create">Nueva Maquinaria</a>
+    <a class="btn btn-primary" href="/equipments/create"><i class="bi bi-plus-circle"></i>  Nueva Maquinaria </a>
 </div>
 
 <GenericList MyList="Equipments">
@@ -50,7 +50,7 @@
 
                         <td>
                             <a href="/equipments/edit/@equipment.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(equipment.Id))>Borrar <i class="bi bi-trash3"></i></button>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(equipment))>Borrar <i class="bi bi-trash3"></i></button>
 
                         </td>
 
@@ -84,13 +84,13 @@
     }
 
 
-    private async Task Delete(int id)
+    private async Task Delete(Equipment equipment)
     {
 
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = "¿Realmente deseas eliminar el registro?",
+                Text = $"¿Realmente deseas eliminar la maquinaria: {equipment.Name}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
                 CancelButtonText = "No",
@@ -103,7 +103,7 @@
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/Equipments/{id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/Equipments/{equipment.Id}?");
 
         if (responseHTTP.Error)
         {
@@ -120,9 +120,19 @@
         else
         {
             await Charging();
+
+            var toast = sweetAlertService.Mixin(new SweetAlertOptions
+                {
+                    Toast = true,
+                    ShowConfirmButton = true,
+                    Timer = 3000,
+                    Position = SweetAlertPosition.BottomEnd
+                });
+             toast.FireAsync(icon: SweetAlertIcon.Success, message: "maquinaria borrada con éxito.");
+        }
         }
     }
 
 
 
-}
+

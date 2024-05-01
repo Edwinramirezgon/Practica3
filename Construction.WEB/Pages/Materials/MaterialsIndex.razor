@@ -8,7 +8,7 @@
 
 <h1>Materiales</h1>
 <div class="mb-3">
-    <a class="btn btn-primary" href="/materials/create">Nuevo Material</a>
+    <a class="btn btn-primary" href="/materials/create"><i class="bi bi-plus-circle"></i>  Nuevo Material </a>
 </div>
 
 <GenericList MyList="Materials">
@@ -45,7 +45,7 @@
 
                         <td>
                             <a href="/materials/edit/@material.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(material.Id))>Borrar <i class="bi bi-trash3"></i></button>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(material))>Borrar <i class="bi bi-trash3"></i></button>
 
                         </td>
 
@@ -79,13 +79,13 @@
     }
 
 
-    private async Task Delete(int id)
+    private async Task Delete(Material material)
     {
 
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = "¿Realmente deseas eliminar el registro?",
+                Text = $"¿Realmente deseas eliminar el material: {material.Name}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
                 CancelButtonText = "No",
@@ -98,7 +98,7 @@
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/Materials/{id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/Materials/{material.Id}");
 
         if (responseHTTP.Error)
         {
@@ -115,9 +115,19 @@
         else
         {
             await Charging();
+
+            var toast = sweetAlertService.Mixin(new SweetAlertOptions
+                {
+                    Toast = true,
+                    ShowConfirmButton = true,
+                    Timer = 3000,
+                    Position = SweetAlertPosition.BottomEnd
+                });
+             toast.FireAsync(icon: SweetAlertIcon.Success, message: "material borrado con éxito.");
+        }
         }
     }
 
 
 
-}
+

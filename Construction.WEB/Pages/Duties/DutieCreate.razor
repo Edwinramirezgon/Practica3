@@ -6,12 +6,12 @@
 
 <h3>Creacion De Tareas</h3>
 
-<DutieForm dutie="duties" OnValidSubmit="Create" ReturnAction="Return" />
+<DutieForm  dutie="duties" OnValidSubmit="Create" ReturnAction="Return" />
 
 
 @code {
     private Dutie duties = new();
-    private DutieForm dutieForm;
+ 
 
     private async Task Create()
     {
@@ -22,7 +22,8 @@
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
         } else      
-{        Return();   
+        {
+            navigationManager.NavigateTo("/duties");
         var Toast = sweetAlertService.Mixin(new SweetAlertOptions
             {
 
@@ -42,7 +43,7 @@
 
     private void Return()
     {
-        navigationManager.NavigateTo("/duties");
+        navigationManager.NavigateTo("/");
 
     }
 

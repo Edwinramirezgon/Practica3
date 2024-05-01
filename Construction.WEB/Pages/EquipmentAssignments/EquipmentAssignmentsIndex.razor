@@ -9,7 +9,7 @@
 
 <h1>Asignacion de Maquinaria</h1>
 <div class="mb-3">
-    <a class="btn btn-primary" href="/equipmentassignments/create">Nueva Asignacion de Maquinaria</a>
+    <a class="btn btn-primary" href="/equipmentassignments/create"><i class="bi bi-plus-circle"></i>  Nueva Asignacion de Maquinaria </a>
 </div>
 
 <GenericList MyList="EquipmentAssignments">
@@ -36,7 +36,7 @@
 
                         <td>
                             <a href="/equipmentassignments/edit/@equipmentassignment.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(equipmentassignment.Id))>Borrar <i class="bi bi-trash3"></i></button>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(equipmentassignment))>Borrar <i class="bi bi-trash3"></i></button>
 
                         </td>
 
@@ -70,13 +70,13 @@
     }
 
 
-    private async Task Delete(int id)
+    private async Task Delete(EquipmentAssignment equipmentAssignment)
     {
 
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = "¿Realmente deseas eliminar el registro?",
+                Text = $"¿Realmente deseas eliminar la asignacion de maquinaria: {equipmentAssignment.Id}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
                 CancelButtonText = "No",
@@ -89,7 +89,7 @@
             return;
         }
 
-        var responseHTTP = await Repository.DeleteAsync($"/api/EquipmentAssignments/{id}");
+        var responseHTTP = await Repository.DeleteAsync($"/api/EquipmentAssignments/{equipmentAssignment.Id}");
 
         if (responseHTTP.Error)
         {
@@ -104,11 +104,19 @@
             }
         }
         else
-        {
+ 
             await Charging();
+
+            var toast = sweetAlertService.Mixin(new SweetAlertOptions
+                {
+                    Toast = true,
+                    ShowConfirmButton = true,
+                    Timer = 3000,
+                Position = SweetAlertPosition.BottomEnd
+                });
+            toast.FireAsync(icon: SweetAlertIcon.Success, message: "Asignacion de maquinaria borrada con éxito.");
         }
-    }
+        }
+  
 
 
-
-}
