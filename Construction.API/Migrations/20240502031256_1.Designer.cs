@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Construction.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240502054002_1")]
+    [Migration("20240502031256_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -70,7 +70,6 @@ namespace Construction.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("MembersList")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
