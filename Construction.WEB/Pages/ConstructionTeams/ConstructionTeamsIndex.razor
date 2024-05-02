@@ -6,12 +6,19 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h1>Equipos de Construccion</h1>
 
+<h3><i class="bi bi-tools" /> Equipos de Construccion</h3>
+<div class="card">
+    <div class="card-header">
+        <span>
+            <a class="btn btn-primary btn-sm float-start" href="/constructionteams/create"><i class="bi bi-plus-circle" /> Nuevo Equipo de Construccion </a>
 
-<div class="mb-3">
-    <a class="btn btn-primary" href="/constructionteams/create"><i class="bi bi-plus-circle"></i>  Nuevo Equipo de Construccion </a>
+        </span>
 </div>
+
+    <div class="card-body">
+
+
 
 <GenericList MyList="ConstructionTeams">
 
@@ -19,8 +26,6 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Equipos de Construccion</th>
-                    <th></th>
 
                 </tr>
             </thead>
@@ -56,6 +61,8 @@
     </Body>
  
 </GenericList>
+    </div>
+</div>
 
 @code {
 

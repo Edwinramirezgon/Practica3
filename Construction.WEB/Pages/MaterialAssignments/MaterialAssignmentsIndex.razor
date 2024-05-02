@@ -7,10 +7,17 @@
 @inject NavigationManager navigationManager
 
 
-<h1>Asignacion de Material</h1>
-<div class="mb-3">
-    <a class="btn btn-primary" href="/MaterialAssignments/create"><i class="bi bi-plus-circle"></i>  Nueva Asignacion de Materiales </a>
+<h3><i class="bi bi-arrow-left-right" /> Asignacion de Materiales</h3>
+<div class="card">
+    <div class="card-header">
+        <span>
+            <a class="btn btn-primary btn-sm float-start" href="/MaterialAssignments/create"><i class="bi bi-plus-circle" /> Nueva Asignacion de Materiales</a>
+
+        </span>
 </div>
+
+    <div class="card-body">
+
 
 <GenericList MyList="MaterialAssignments">
 
@@ -47,6 +54,8 @@
     </Body>
 
 </GenericList>
+    </div>
+</div>
 
 
 

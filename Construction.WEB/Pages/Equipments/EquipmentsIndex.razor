@@ -6,10 +6,17 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h1>Maquinaria</h1>
-<div class="mb-3">
-    <a class="btn btn-primary" href="/equipments/create"><i class="bi bi-plus-circle"></i>  Nueva Maquinaria </a>
+<h3><i class="bi bi-gear-wide-connected" /> Maquinaria</h3>
+<div class="card">
+    <div class="card-header">
+        <span>
+            <a class="btn btn-primary btn-sm float-start" href="/equipments/create"><i class="bi bi-plus-circle" /> Nueva Maquinaria</a>
+
+        </span>
 </div>
+
+    <div class="card-body">
+
 
 <GenericList MyList="Equipments">
 
@@ -17,8 +24,6 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Equipment</th>
-                    <th></th>
 
                 </tr>
             </thead>
@@ -62,6 +67,9 @@
     </Body>
 
 </GenericList>
+
+    </div>
+</div>
 
 
 

@@ -7,10 +7,20 @@
 @inject NavigationManager navigationManager
 
 
-<h1>Tareas</h1>
-<div class="mb-3">
-    <a class="btn btn-primary" href="/duties/create"><i class="bi bi-plus-circle"></i>  Nueva Tarea </a>
+
+
+<h3><i class="bi bi-card-checklist" /> Tareas</h3>
+<div class="card">
+    <div class="card-header">
+        <span>
+            <a class="btn btn-primary btn-sm float-start" href="/duties/create"><i class="bi bi-plus-circle" /> Nueva Tarea</a>
+
+        </span>
 </div>
+
+    <div class="card-body">
+
+
 
 <GenericList MyList="Duties">
 
@@ -18,8 +28,6 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Tareas</th>
-                    <th></th>
 
                 </tr>
             </thead>
@@ -61,6 +69,9 @@
     </Body>
  
 </GenericList>
+
+    </div>
+</div>
 
 
 
