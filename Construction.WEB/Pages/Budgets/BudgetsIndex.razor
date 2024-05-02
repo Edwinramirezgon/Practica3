@@ -11,61 +11,88 @@
 <div class="card">
     <div class="card-header">
         <span>
-            <a class="btn btn-primary btn-sm float-start" href="/budgets/create"><i class="bi bi-plus-circle"/> Nuevo Presupuesto</a>
+            <a class="btn btn-primary btn-sm float-start" href="/budgets/create"><i class="bi bi-plus-circle" /> Nuevo Presupuesto</a>
 
         </span>
-</div>
+    </div>
 
     <div class="card-body">
 
-<GenericList MyList="Budgets">
+        <GenericList MyList="Budgets">
 
-    <Body>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var budget in Budgets!)
-                {
-                    <tr>
-                        <td>
-                            @budget.BudgetConstructionTeam
-                        </td>
-                        <td>
-                            @budget.BudgetDutie
-                        </td>
-                        <td>
-                            @budget.BudgetEquipment
+            <Body>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <b>Equipo de Contruccion</b>
                             </td>
                             <td>
-                            @budget.BudgetProyectConstruction
-                        </td>
-                        <td>
-                            @budget.BudgetTotal
+                                <b>Tareas</b>
                             </td>
-                        <td>
-                            @budget.Remarks
+                            <td>
+                                <b>Maquinaria</b>
                             </td>
-                        <td>
-                            @budget.ProjectConstructionsId
-                        </td>
-                      
-                        <td>
-                            <a href="/budgets/edit/@budget.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(budget))>Borrar <i class="bi bi-trash3"></i></button>
-                        </td>
+                            <td>
+                                <b>Proyecto de Construccion</b>
+                            </td>
+                            <td>
+                                <b>Total</b>
+                            </td>
+                            <td>
+                                <b>Comentarios</b>
+                            </td>
+                            <td>
+                                <b>ID de Proyecto de Construccion</b>
+                            </td>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
+                            <td>
+                                <b>Acciones</b>
+                            </td>
 
-    </Body>
- 
-</GenericList>
+                        </tr>
+                        @foreach (var budget in Budgets!)
+                        {
+                            <tr>
+                                <td>
+                                    @budget.BudgetConstructionTeam
+                                </td>
+                                <td>
+                                    @budget.BudgetDutie
+                                </td>
+                                <td>
+                                    @budget.BudgetEquipment
+                                </td>
+                                <td>
+                                    @budget.BudgetProyectConstruction
+                                </td>
+                                <td>
+                                    @budget.BudgetTotal
+                                </td>
+                                <td>
+                                    @budget.Remarks
+                                </td>
+                                <td>
+                                    @budget.ProjectConstructionsId
+                                </td>
+
+                                <td>
+                                    <a href="/budgets/edit/@budget.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                                    <button class="btn btn-danger" @onclick=@(() => Delete(budget))>Borrar <i class="bi bi-trash3"></i></button>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </Body>
+
+        </GenericList>
     </div>
 </div>
 

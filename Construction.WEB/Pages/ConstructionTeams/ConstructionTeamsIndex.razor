@@ -14,53 +14,70 @@
             <a class="btn btn-primary btn-sm float-start" href="/constructionteams/create"><i class="bi bi-plus-circle" /> Nuevo Equipo de Construccion </a>
 
         </span>
-</div>
+    </div>
 
     <div class="card-body">
 
 
 
-<GenericList MyList="ConstructionTeams">
+        <GenericList MyList="ConstructionTeams">
 
-    <Body>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var constructionteam in ConstructionTeams!)
-                {
-                    <tr>
-                        <td>
-                            @constructionteam.Name
-                        </td>
-                        <td>
-                            @constructionteam.Specialties
-                        </td>
-                        <td>
-                            @constructionteam.MembersList
+            <Body>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <b>Nombre</b>
                             </td>
                             <td>
-                            @constructionteam.Remarks
-                        </td>
-                       
-                      
-                        <td>
-                            <a href="/constructionteams/edit/@constructionteam.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(constructionteam))>Borrar <i class="bi bi-trash3"></i></button>
+                                <b>Especialidades</b>
+                            </td>
+                            <td>
+                                <b>Lista de Miembros</b>
+                            </td>
+                            <td>
+                                <b>Comentarios</b>
+                            </td>
+                            <td>
+                                <b>Acciones</b>
+                            </td>
 
-                        </td>
+                        </tr>
+                        @foreach (var constructionteam in ConstructionTeams!)
+                        {
+                            <tr>
+                                <td>
+                                    @constructionteam.Name
+                                </td>
+                                <td>
+                                    @constructionteam.Specialties
+                                </td>
+                                <td>
+                                    @constructionteam.MembersList
+                                </td>
+                                <td>
+                                    @constructionteam.Remarks
+                                </td>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
 
-    </Body>
- 
-</GenericList>
+                                <td>
+                                    <a href="/constructionteams/edit/@constructionteam.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                                    <button class="btn btn-danger" @onclick=@(() => Delete(constructionteam))>Borrar <i class="bi bi-trash3"></i></button>
+
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </Body>
+
+        </GenericList>
     </div>
 </div>
 

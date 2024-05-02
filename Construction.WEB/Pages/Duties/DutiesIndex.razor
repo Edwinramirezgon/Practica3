@@ -16,59 +16,81 @@
             <a class="btn btn-primary btn-sm float-start" href="/duties/create"><i class="bi bi-plus-circle" /> Nueva Tarea</a>
 
         </span>
-</div>
+    </div>
 
     <div class="card-body">
 
 
 
-<GenericList MyList="Duties">
+        <GenericList MyList="Duties">
 
-    <Body>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var dutie in Duties!)
-                {
-                    <tr>
-                        <td>
-                            @dutie.Name
-                        </td>
-                        <td>
-                            @dutie.Description
-                        </td>
-                        <td>
-                            @dutie.StartTime
+            <Body>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <b>Nombre</b>
                             </td>
                             <td>
-                            @dutie.EndTime
-                        </td>
-                        <td>
-                            @dutie.Remarks
+                                <b>Descripcion</b>
                             </td>
-                        <td>
-                            @dutie.ProjectConstructionsId
-                            </td>                       
-                      
-                        <td>
-                            <a href="/duties/edit/@dutie.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(dutie))>Borrar <i class="bi bi-trash3"></i></button>
+                            <td>
+                                <b>Fecha de Inicio</b>
+                            </td>
+                            <td>
+                                <b>Fecha de Finalizacion</b>
+                            </td>
+                            <td>
+                                <b>Comentarios</b>
+                            </td>
+                            <td>
+                                <b>ID de Proyecto de Construccion</b>
+                            </td>
+                            <td>
+                                <b>Acciones</b>
+                            </td>
+                        </tr>
+                        @foreach (var dutie in Duties!)
+                        {
+                            <tr>
+                                <td>
+                                    @dutie.Name
+                                </td>
+                                <td>
+                                    @dutie.Description
+                                </td>
+                                <td>
+                                    @dutie.StartTime
+                                </td>
+                                <td>
+                                    @dutie.EndTime
+                                </td>
+                                <td>
+                                    @dutie.Remarks
+                                </td>
+                                <td>
+                                    @dutie.ProjectConstructionsId
+                                </td>
+
+                                <td>
+                                    <a href="/duties/edit/@dutie.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                                    <button class="btn btn-danger" @onclick=@(() => Delete(dutie))>Borrar <i class="bi bi-trash3"></i></button>
 
 
-                        </td>
+                                </td>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-    </Body>
- 
-</GenericList>
+            </Body>
+
+        </GenericList>
 
     </div>
 </div>
@@ -131,17 +153,17 @@
         {
             await Charging();
 
-                       var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            var toast = sweetAlertService.Mixin(new SweetAlertOptions
                 {
                     Toast = true,
                     ShowConfirmButton = true,
                     Timer = 3000,
                     Position = SweetAlertPosition.BottomEnd
                 });
-             toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tarea borrada con éxito.");
-        }
+            toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tarea borrada con éxito.");
         }
     }
+}
 
 
 

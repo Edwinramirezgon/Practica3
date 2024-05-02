@@ -15,56 +15,78 @@
             <a class="btn btn-primary btn-sm float-start" href="/projectconstructions/create"><i class="bi bi-plus-circle" /> Nuevo Proyecto de Construccion</a>
 
         </span>
-</div>
+    </div>
 
     <div class="card-body">
-<GenericList MyList="ProjectConstructions">
+        <GenericList MyList="ProjectConstructions">
 
-    <Body>
-        <table class="table table-striped">
-            <thead>
-                <tr>
+            <Body>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <b>Nombre</b>
+                            </td>
+                            <td>
+                                <b>Direccion</b>
+                            </td>
+                            <td>
+                                <b>Descripcion</b>
+                            </td>
+                            <td>
+                                <b>Fecha de Inicio</b>
+                            </td>
+                            <td>
+                                <b>Fecha de Finalizacion Estimada</b>
+                            </td>
+                            <td>
+                                <b>Comentarios</b>
+                            </td>
+                            <td>
+                                <b>Acciones</b>
+                            </td>
+                        </tr>
+                        @foreach (var projectconstruction in ProjectConstructions!)
+                        {
+                            <tr>
+                                <td>
+                                    @projectconstruction.Name
+                                </td>
+                                <td>
+                                    @projectconstruction.Address
+                                </td>
+                                <td>
+                                    @projectconstruction.Description
+                                </td>
+                                <td>
+                                    @projectconstruction.StartTime
+                                </td>
+                                <td>
+                                    @projectconstruction.EstimatedEndTime
+                                </td>
+                                <td>
+                                    @projectconstruction.Remarks
+                                </td>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var projectconstruction in ProjectConstructions!)
-                {
-                    <tr>
-                        <td>
-                            @projectconstruction.Name
-                        </td>
-                        <td>
-                            @projectconstruction.Address
-                        </td>
-                        <td>
-                            @projectconstruction.Description
-                        </td>
-                        <td>
-                            @projectconstruction.StartTime
-                        </td>
-                        <td>
-                            @projectconstruction.EstimatedEndTime
-                        </td>
-                        <td>
-                            @projectconstruction.Remarks
-                        </td>
+                                <td>
+                                    <a href="/projectconstructions/edit/@projectconstruction.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                                    <button class="btn btn-danger" @onclick=@(() => Delete(projectconstruction))>Borrar <i class="bi bi-trash3"></i></button>
 
-                        <td>
-                            <a href="/projectconstructions/edit/@projectconstruction.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(projectconstruction))>Borrar <i class="bi bi-trash3"></i></button>
+                                </td>
 
-                        </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
+            </Body>
 
-    </Body>
-
-</GenericList>
- </div>
+        </GenericList>
+    </div>
 </div>
 
 
@@ -135,10 +157,10 @@
                     Timer = 3000,
                     Position = SweetAlertPosition.BottomEnd
                 });
-         toast.FireAsync(icon: SweetAlertIcon.Success, message: "material borrado con éxito.");
-        }
+            toast.FireAsync(icon: SweetAlertIcon.Success, message: "material borrado con éxito.");
         }
     }
+}
 
 
 

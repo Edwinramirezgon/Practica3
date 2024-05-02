@@ -13,60 +13,85 @@
             <a class="btn btn-primary btn-sm float-start" href="/equipments/create"><i class="bi bi-plus-circle" /> Nueva Maquinaria</a>
 
         </span>
-</div>
+    </div>
 
     <div class="card-body">
 
 
-<GenericList MyList="Equipments">
+        <GenericList MyList="Equipments">
 
-    <Body>
-        <table class="table table-striped">
-            <thead>
-                <tr>
+            <Body>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <b>Nombre</b>
+                            </td>
+                            <td>
+                                <b>Capacidad</b>
+                            </td>
+                            <td>
+                                <b>Estado de Mantenimiento</b>
+                            </td>
+                            <td>
+                                <b>Disponibilidad</b>
+                            </td>
+                            <td>
+                                <b>Comentarios</b>
+                            </td>
+                            <td>
+                                <b>ID Proyecto de Construccion</b>
+                            </td>
+                            <td>
+                                <b>ID Tarea</b>
+                            </td>
+                            <td>
+                                <b>Acciones</b>
+                            </td>
+                        </tr>
+                        @foreach (var equipment in Equipments!)
+                        {
+                            <tr>
+                                <td>
+                                    @equipment.Name
+                                </td>
+                                <td>
+                                    @equipment.Capacity
+                                </td>
+                                <td>
+                                    @equipment.MaintenanceState
+                                </td>
+                                <td>
+                                    @equipment.Availability
+                                </td>
+                                <td>
+                                    @equipment.Remarks
+                                </td>
+                                <td>
+                                    @equipment.ProjectConstructionsId
+                                </td>
+                                <td>
+                                    @equipment.DutiesId
+                                </td>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var equipment in Equipments!)
-                {
-                    <tr>
-                        <td>
-                            @equipment.Name
-                        </td>
-                        <td>
-                            @equipment.Capacity
-                        </td>
-                        <td>
-                            @equipment.MaintenanceState
-                        </td>
-                        <td>
-                            @equipment.Availability
-                        </td>
-                        <td>
-                            @equipment.Remarks
-                        </td>
-                        <td>
-                            @equipment.ProjectConstructionsId
-                        </td>
-                        <td>
-                            @equipment.DutiesId
-                        </td>
+                                <td>
+                                    <a href="/equipments/edit/@equipment.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                                    <button class="btn btn-danger" @onclick=@(() => Delete(equipment))>Borrar <i class="bi bi-trash3"></i></button>
 
-                        <td>
-                            <a href="/equipments/edit/@equipment.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(equipment))>Borrar <i class="bi bi-trash3"></i></button>
+                                </td>
 
-                        </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
+            </Body>
 
-    </Body>
-
-</GenericList>
+        </GenericList>
 
     </div>
 </div>
@@ -136,10 +161,10 @@
                     Timer = 3000,
                     Position = SweetAlertPosition.BottomEnd
                 });
-             toast.FireAsync(icon: SweetAlertIcon.Success, message: "maquinaria borrada con éxito.");
-        }
+            toast.FireAsync(icon: SweetAlertIcon.Success, message: "maquinaria borrada con éxito.");
         }
     }
+}
 
 
 

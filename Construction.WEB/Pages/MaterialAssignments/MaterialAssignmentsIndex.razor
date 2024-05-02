@@ -14,46 +14,54 @@
             <a class="btn btn-primary btn-sm float-start" href="/MaterialAssignments/create"><i class="bi bi-plus-circle" /> Nueva Asignacion de Materiales</a>
 
         </span>
-</div>
+    </div>
 
     <div class="card-body">
 
 
-<GenericList MyList="MaterialAssignments">
+        <GenericList MyList="MaterialAssignments">
 
-    <Body>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>MaterialAssignments</th>
-                    <th></th>
+            <Body>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <b>ID Material</b>
+                            </td>
+                            <td>
+                                <b>ID Tarea</b>
+                            </td>
+                            <td>
+                                <b>Acciones</b>
+                            </td>
+                        </tr>
+                        @foreach (var materialassignment in MaterialAssignments!)
+                        {
+                            <tr>
+                                <td>
+                                    @materialassignment.MaterialsId
+                                </td>
+                                <td>
+                                    @materialassignment.DutiesId
+                                </td>
+                                <td>
+                                    <a href="/MaterialAssignments/edit/@materialassignment.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                                    <button class="btn btn-danger" @onclick=@(() => Delete(materialassignment))>Borrar <i class="bi bi-trash3"></i></button>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var materialassignment in MaterialAssignments!)
-                {
-                    <tr>
-                        <td>
-                            @materialassignment.MaterialsId
-                        </td>
-                        <td>
-                            @materialassignment.DutiesId
-                        </td>
-                        <td>
-                            <a href="/MaterialAssignments/edit/@materialassignment.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(materialassignment))>Borrar <i class="bi bi-trash3"></i></button>
+                                </td>
 
-                        </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
+            </Body>
 
-    </Body>
-
-</GenericList>
+        </GenericList>
     </div>
 </div>
 
@@ -121,10 +129,10 @@
                     Timer = 3000,
                     Position = SweetAlertPosition.BottomEnd
                 });
-             toast.FireAsync(icon: SweetAlertIcon.Success, message: "Asignacion de material borrada con éxito.");
-        }
+            toast.FireAsync(icon: SweetAlertIcon.Success, message: "Asignacion de material borrada con éxito.");
         }
     }
+}
 
 
 

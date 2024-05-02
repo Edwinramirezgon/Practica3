@@ -15,57 +15,78 @@
             <a class="btn btn-primary btn-sm float-start" href="/materials/create"><i class="bi bi-plus-circle" /> Nuevo Material</a>
 
         </span>
-</div>
+    </div>
 
     <div class="card-body">
 
 
-<GenericList MyList="Materials">
+        <GenericList MyList="Materials">
 
-    <Body>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Material</th>
-                    <th></th>
+            <Body>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th></th>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var material in Materials!)
-                {
-                    <tr>
-                        <td>
-                            @material.Name
-                        </td>
-                        <td>
-                            @material.RequiredQuantity
-                        </td>
-                        <td>
-                            @material.Supplier
-                        </td>
-                        <td>
-                            @material.EstimatedDeliveryTime
-                        </td>
-                        <td>
-                            @material.ProjectConstructionsId
-                        </td>
-                       
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <b>Nombre</b>
+                            </td>
+                            <td>
+                                <b>Cantidad</b>
+                            </td>
+                            <td>
+                                <b>Proveedor</b>
+                            </td>
+                            <td>
+                                <b>Tiempo Estimado de Entrega</b>
+                            </td>
+                            <td>
+                                <b>ID Proyecto de Construccion</b>
+                            </td>
+                            <td>
+                                <b>Acciones</b>
+                            </td>
 
-                        <td>
-                            <a href="/materials/edit/@material.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(material))>Borrar <i class="bi bi-trash3"></i></button>
+                        </tr>
+                        @foreach (var material in Materials!)
+                        {
+                            <tr>
+                                <td>
+                                    @material.Name
+                                </td>
+                                <td>
+                                    @material.RequiredQuantity
+                                </td>
+                                <td>
+                                    @material.Supplier
+                                </td>
+                                <td>
+                                    @material.EstimatedDeliveryTime
+                                </td>
+                                <td>
+                                    @material.ProjectConstructionsId
+                                </td>
 
-                        </td>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
+                                <td>
+                                    <a href="/materials/edit/@material.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                                    <button class="btn btn-danger" @onclick=@(() => Delete(material))>Borrar <i class="bi bi-trash3"></i></button>
 
-    </Body>
+                                </td>
 
-</GenericList>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </Body>
+
+        </GenericList>
     </div>
 </div>
 
@@ -134,10 +155,10 @@
                     Timer = 3000,
                     Position = SweetAlertPosition.BottomEnd
                 });
-             toast.FireAsync(icon: SweetAlertIcon.Success, message: "material borrado con éxito.");
-        }
+            toast.FireAsync(icon: SweetAlertIcon.Success, message: "material borrado con éxito.");
         }
     }
+}
 
 
 
