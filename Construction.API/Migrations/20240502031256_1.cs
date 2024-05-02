@@ -63,7 +63,7 @@ namespace Construction.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Specialties = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    MembersList = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    MembersList = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
