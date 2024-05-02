@@ -7,10 +7,16 @@
 @inject NavigationManager navigationManager
 
 
-<h1>Presupuestos</h1>
-<div class="mb-3">
-    <a class="btn btn-primary" href="/budgets/create"><i class="bi bi-plus-circle"></i>  Nuevo Presupuesto</a>
+<h1><i class="bi bi-cash" /> Presupuestos</h1>
+<div class="card">
+    <div class="card-header">
+        <span>
+            <a class="btn btn-primary btn-sm float-start" href="/budgets/create"><i class="bi bi-plus-circle"/> Nuevo Presupuesto</a>
+
+        </span>
 </div>
+
+    <div class="card-body">
 
 <GenericList MyList="Budgets">
 
@@ -62,6 +68,8 @@
     </Body>
  
 </GenericList>
+    </div>
+</div>
 
 
 

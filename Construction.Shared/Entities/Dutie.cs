@@ -26,11 +26,11 @@ namespace Construction.Shared.Entities
         public string Description { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        //[Required(ErrorMessage = "El campo {0} es obligatorio")]
         public DateTime StartTime { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        //[Required(ErrorMessage = "El campo {0} es obligatorio")]
         public DateTime EndTime { get; set; }
 
         public string Remarks { get; set; }

@@ -36,18 +36,30 @@ namespace Construction.API.Data
 
             await CheckProjectConstructionsAsync();
 
-          
+            await CheckDutiessAsync();
+
+
             await CheckRoleAsync();
 
             await CheckUserAsync("1010", "Super", "Admin", "orlapez@gnmail.com", "3015555555", "Cr 25 8965", UserType.Admin);
 
 
         }
+        private async Task CheckDutiessAsync()
+        {
+            if (!_context.Duties.Any())
+            {
+                _context.Duties.Add(new Dutie { Name = "Cavar", Description = "Descripcion", ProjectConstructionsId=1});
+                _context.Duties.Add(new Dutie { Name = "Perforar", Description = "Descripcion", ProjectConstructionsId=2 });
+            }
+            await _context.SaveChangesAsync();
+        }
+
         private async Task CheckProjectConstructionsAsync()
         {
             if (!_context.ProjectConstructions.Any())
             {
-                _context.ProjectConstructions.Add(new ProjectConstruction { Name = "Changualito", Description = "Descripcion",});
+                _context.ProjectConstructions.Add(new ProjectConstruction { Name = "Changualito", Description = "Descripcion", });
                 _context.ProjectConstructions.Add(new ProjectConstruction { Name = "Changualo", Description = "Descripcion", });
             }
             await _context.SaveChangesAsync();
