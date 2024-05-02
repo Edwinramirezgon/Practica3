@@ -29,6 +29,9 @@
                     <tbody>
                         <tr>
                             <td>
+                                <b>ID</b>
+                            </td>
+                            <td>
                                 <b>Nombre</b>
                             </td>
                             <td>
@@ -53,6 +56,9 @@
                         @foreach (var projectconstruction in ProjectConstructions!)
                         {
                             <tr>
+                                <td>
+                                    @projectconstruction.Id
+                                </td>
                                 <td>
                                     @projectconstruction.Name
                                 </td>

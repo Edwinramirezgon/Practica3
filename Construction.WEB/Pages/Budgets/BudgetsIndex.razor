@@ -29,6 +29,9 @@
                     <tbody>
                         <tr>
                             <td>
+                                <b>ID</b>
+                            </td>
+                            <td>
                                 <b>Equipo de Contruccion</b>
                             </td>
                             <td>
@@ -57,7 +60,11 @@
                         </tr>
                         @foreach (var budget in Budgets!)
                         {
+
                             <tr>
+                                <td>
+                                    @budget.Id
+                                </td>
                                 <td>
                                     @budget.BudgetConstructionTeam
                                 </td>

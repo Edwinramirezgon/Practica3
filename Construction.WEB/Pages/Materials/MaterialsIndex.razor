@@ -31,6 +31,9 @@
                     <tbody>
                         <tr>
                             <td>
+                                <b>ID</b>
+                            </td>
+                            <td>
                                 <b>Nombre</b>
                             </td>
                             <td>
@@ -53,6 +56,9 @@
                         @foreach (var material in Materials!)
                         {
                             <tr>
+                                <td>
+                                    @material.Id
+                                </td>
                                 <td>
                                     @material.Name
                                 </td>

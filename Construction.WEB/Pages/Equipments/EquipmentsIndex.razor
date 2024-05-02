@@ -29,6 +29,9 @@
                     <tbody>
                         <tr>
                             <td>
+                                <b>ID</b>
+                            </td>
+                            <td>
                                 <b>Nombre</b>
                             </td>
                             <td>
@@ -56,6 +59,9 @@
                         @foreach (var equipment in Equipments!)
                         {
                             <tr>
+                                <td>
+                                    @equipment.Id
+                                </td>
                                 <td>
                                     @equipment.Name
                                 </td>
