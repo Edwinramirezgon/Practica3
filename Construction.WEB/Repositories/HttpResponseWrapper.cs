@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿//this class containsthe messages for handling the exceptions
+using System.Net;
 
 namespace Construction.WEB.Repositories
 {

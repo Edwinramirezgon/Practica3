@@ -1,3 +1,4 @@
+//This class is for configuring the ports and urls of the web
 {
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {

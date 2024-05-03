@@ -1,3 +1,4 @@
+//this class contains the services and parameters What we're going to use in the web
 using Construction.WEB;
 using Construction.WEB.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;

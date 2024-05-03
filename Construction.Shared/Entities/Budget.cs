@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Budget Entitie whit all the validators
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -45,8 +46,8 @@ namespace Construction.Shared.Entities
         public string Remarks { get; set; }
 
 
-        //object creation to assign FK in the database
 
+        //object creation to assign FK in the database
 
         [ForeignKey("ProjectConstructionsId")]
         [JsonIgnore]

@@ -1,10 +1,12 @@
-﻿using Construction.API.Data;
+﻿//Controllers for Materials
+using Construction.API.Data;
 using Construction.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Construction.API.Controllers
 {
+    //Route for the api Methods
     [ApiController]
     [Route("/api/Materials")]
     public class MaterialControllers : ControllerBase
@@ -18,14 +20,14 @@ namespace Construction.API.Controllers
             _context = context;
         }
 
-        //Metodo Get - Lista (Read all)
+        //Method Get - List (Read all)
         [HttpGet]
         public async Task<ActionResult> GetAsync()
         {
             return Ok(await _context.Materials.ToListAsync());
         }
 
-        //Create
+        //Method Create
         [HttpPost]
         public async Task<ActionResult> PostAsync(Material material)
         {
@@ -34,7 +36,7 @@ namespace Construction.API.Controllers
             return Ok(material);
         }
 
-        //Get por ID (Read)
+        //Method Get por ID (Read)
         [HttpGet("{id:int}")]
         public async Task<ActionResult> GetAsync(int id)
         {
@@ -48,7 +50,7 @@ namespace Construction.API.Controllers
             return Ok(equipment);
         }
 
-        //Update
+        //Method Update
         [HttpPut]
         public async Task<ActionResult> PutAsync(Material material)
         {
@@ -57,7 +59,7 @@ namespace Construction.API.Controllers
             return Ok(material);
         }
 
-        //Delete
+        //Method Delete
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {

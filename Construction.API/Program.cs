@@ -1,3 +1,4 @@
+//this class contains the services and parameters What we're going to use in the api
 using Construction.API.Data;
 using Construction.API.Helpers;
 using Construction.Shared.Entities;
@@ -16,8 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = DefaultConnection"));
+//this line is the parameter for the connection whit the database
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = WindowsSecurity"));
 
+
+//this is for the required parameters for the security of users
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
     x.User.RequireUniqueEmail = true;
@@ -29,6 +33,8 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
 }).AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IUserHelper, UserHelper>();
+
+//this is for the seed of the database
 builder.Services.AddTransient<SeedDb>();
 
 
@@ -60,6 +66,7 @@ static void SeedData(WebApplication app)
     app.MapControllers();
 
 
+    //this is for allow the cors (Cross-Origin Resource Sharing) of any domain
     app.UseCors(x => x
 
     .AllowAnyMethod()

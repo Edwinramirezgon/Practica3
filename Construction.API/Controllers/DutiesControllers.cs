@@ -1,10 +1,12 @@
-﻿using Construction.API.Data;
+﻿//Controllers for Duties
+using Construction.API.Data;
 using Construction.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Construction.API.Controllers
 {
+    //Route for the api Methods
     [ApiController]
     [Route("/api/Duties")]
     public class DutiesControllers : ControllerBase
@@ -17,14 +19,14 @@ namespace Construction.API.Controllers
             _context = context;
         }
 
-        //Metodo Get - Lista (Read all)
+        //Method Get - List (Read all)
         [HttpGet]
         public async Task<ActionResult> GetAsync()
         {
             return Ok(await _context.Duties.ToListAsync());
         }
 
-        //Create
+        //Method Create
         [HttpPost]
         public async Task<ActionResult> PostAsync(Dutie dutie)
         {
@@ -33,7 +35,7 @@ namespace Construction.API.Controllers
             return Ok(dutie);
         }
 
-        //Get por ID (Read)
+        //Method Get by ID (Read)
         [HttpGet("{id:int}")]
         public async Task<ActionResult> GetAsync(int id)
         {
@@ -47,7 +49,7 @@ namespace Construction.API.Controllers
             return Ok(dutie);
         }
 
-        //Update
+        //Method Update
         [HttpPut]
         public async Task<ActionResult> PutAsync(Dutie dutie)
         {
@@ -56,7 +58,7 @@ namespace Construction.API.Controllers
             return Ok(dutie);
         }
 
-        //Delete
+        //Method Delete
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {

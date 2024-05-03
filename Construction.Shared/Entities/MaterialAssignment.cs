@@ -1,4 +1,5 @@
-﻿using System;
+﻿//MaterialAssignment Entitie whit all the validators
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿//ConstructionTeam Entitie whit all the validators
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,7 +27,6 @@ namespace Construction.Shared.Entities
 
         [Display(Name = "Lista de miembros")]
         [MaxLength(50, ErrorMessage = "No se permiten mas de 50 caracteres")]
-        //[Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string MembersList { get; set; }
 
         public string Remarks { get; set; }

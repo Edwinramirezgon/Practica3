@@ -1,4 +1,5 @@
-﻿using System;
+﻿//this class contains the roles of the users
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

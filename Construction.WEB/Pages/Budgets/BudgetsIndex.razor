@@ -1,4 +1,5 @@
-﻿@page "/budgets"
+﻿@* Home of budget *@
+@page "/budgets"
 @using Construction.Shared.Entities
 @using Construction.WEB.Repositories
 @using Construction.WEB.Shared
@@ -7,10 +8,12 @@
 @inject NavigationManager navigationManager
 
 
+@* Title *@
 <h3><i class="bi bi-cash" /> Presupuestos</h3>
 <div class="card">
     <div class="card-header">
         <span>
+            @* button to call create class *@
             <a class="btn btn-primary btn-sm float-start" href="/budgets/create"><i class="bi bi-plus-circle" /> Nuevo Presupuesto</a>
 
         </span>
@@ -18,7 +21,7 @@
 
     <div class="card-body">
 
-        <GenericList MyList="Budgets">
+                <GenericList MyList="Budgets">
 
             <Body>
                 <table class="table table-striped">
@@ -28,6 +31,7 @@
                     </thead>
                     <tbody>
                         <tr>
+                            @* Titles of the fields *@
                             <td>
                                 <b>ID</b>
                             </td>
@@ -58,6 +62,7 @@
                             </td>
 
                         </tr>
+                        @* Atributes of the entities to show *@
                         @foreach (var budget in Budgets!)
                         {
 
@@ -88,7 +93,9 @@
                                 </td>
 
                                 <td>
+                                    @* Button to call edit class *@
                                     <a href="/budgets/edit/@budget.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
+                                    @* Button to call delete method *@
                                     <button class="btn btn-danger" @onclick=@(() => Delete(budget))>Borrar <i class="bi bi-trash3"></i></button>
                                 </td>
 
@@ -115,7 +122,7 @@
     }
 
 
-
+    // method to create the list
     private async Task Charging()
     {
         var responseHTTP = await Repository.GetAsync<List<Budget>>("/api/budgets");
@@ -123,10 +130,10 @@
 
     }
 
-
+    // method to delete by id
     private async Task Delete(Budget budget)
     {
-
+        //confirmation pop up 
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
@@ -148,18 +155,18 @@
         if (responseHTTP.Error)
         {
             if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
+            {//if nof tound navigate to home
                 navigationManager.NavigateTo("/budgets");
             }
             else
-            {
+            {//if encountered any error the pop up whit the error message show
                 var mensajeError = await responseHTTP.GetErrorMessageAsync();
                 await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
             }
         }
         else
         {
-            await Charging();
+            //if the delete its sucessful the pop up whit the message show
             await Charging();
 
             var toast = sweetAlertService.Mixin(new SweetAlertOptions

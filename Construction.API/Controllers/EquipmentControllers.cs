@@ -1,10 +1,12 @@
-﻿using Construction.API.Data;
+﻿//Controllers for Equipments
+using Construction.API.Data;
 using Construction.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Construction.API.Controllers
 {
+    //Route for the api Methods
     [ApiController]
     [Route("/api/Equipments")]
     public class EquipmentControllers : ControllerBase
@@ -18,14 +20,14 @@ namespace Construction.API.Controllers
             _context = context;
         }
 
-        //Metodo Get - Lista (Read all)
+        //Method Get - List (Read all)
         [HttpGet]
         public async Task<ActionResult> GetAsync()
         {
             return Ok(await _context.Equipments.ToListAsync());
         }
 
-        //Create
+        //Method Create
         [HttpPost]
         public async Task<ActionResult> PostAsync(Equipment equipment)
         {
@@ -34,7 +36,7 @@ namespace Construction.API.Controllers
             return Ok(equipment);
         }
 
-        //Get por ID (Read)
+        //MethodGet by ID (Read)
         [HttpGet("{id:int}")]
         public async Task<ActionResult> GetAsync(int id)
         {
@@ -48,7 +50,7 @@ namespace Construction.API.Controllers
             return Ok(equipment);
         }
 
-        //Update
+        //Method Update
         [HttpPut]
         public async Task<ActionResult> PutAsync(Equipment equipment)
         {
@@ -57,7 +59,7 @@ namespace Construction.API.Controllers
             return Ok(equipment);
         }
 
-        //Delete
+        //Method Delete
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {

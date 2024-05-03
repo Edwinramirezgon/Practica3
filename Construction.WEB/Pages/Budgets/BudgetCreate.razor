@@ -1,4 +1,5 @@
-﻿@page "/budgets/create"
+﻿@* Create of budget *@
+@page "/budgets/create"
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService sweetAlertService
@@ -6,6 +7,7 @@
 
 <h3>Creacion De Presupuesto</h3>
 
+@* The form is called and when the submit is valid the Create method is called and finally the Return method *@
 <BudgetForm  Budget="budget" OnValidSubmit="Create" ReturnAction="Return" />
 
 
@@ -18,11 +20,13 @@
 
         if (responseHttp.Error)
         {
+            //if any error its encountered the sweet alert whit the error message pop up
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
         }
         else
         {
+            //if the create its succesfull the toast whit the sucessfull confirmation popup
             Return();
 
             var Toast = sweetAlertService.Mixin(new SweetAlertOptions
@@ -41,7 +45,7 @@
 
 
 
-
+    // Return method to navigate to home of budgets
     private void Return()
     {
         navigationManager.NavigateTo("/budgets");

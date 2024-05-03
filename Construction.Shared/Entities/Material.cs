@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Material Entitie whit all the validators
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,7 +28,6 @@ namespace Construction.Shared.Entities
         public string Supplier { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        //[Required(ErrorMessage = "El campo {0} es obligatorio")]
         public DateTime EstimatedDeliveryTime { get; set; }
 
         //Reference to M*M table

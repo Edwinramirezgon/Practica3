@@ -1,4 +1,5 @@
-﻿using Construction.Shared.Enums;
+﻿//User Entitie whit all the validators
+using Construction.Shared.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Construction.Shared.Entities
 {
+    //inheritance whit the IdentityUser
     public class User:IdentityUser
     {
 

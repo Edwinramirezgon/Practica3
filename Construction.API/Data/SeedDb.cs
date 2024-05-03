@@ -1,4 +1,5 @@
-﻿using Construction.API.Helpers;
+﻿//this class contains the methods to seed the database whit the defaults values of the entities
+using Construction.API.Helpers;
 using Construction.Shared.Entities;
 using Construction.Shared.Enums;
 using Microsoft.AspNetCore.SignalR.Protocol;
@@ -22,7 +23,7 @@ namespace Construction.API.Data
             _userHelper = userHelper;
 
         }
-
+        //Method for seed the database
         public async Task SeedAsync()
         {
 
@@ -50,6 +51,7 @@ namespace Construction.API.Data
 
         }
 
+    //-----------------------------------------Methods indivuals by entities whit default values------------
         private async Task CheckProjectConstructionsAsync()
         {
             if (!_context.ProjectConstructions.Any())

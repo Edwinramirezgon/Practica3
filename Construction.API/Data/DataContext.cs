@@ -1,10 +1,12 @@
-﻿using Construction.Shared.Entities;
+﻿//this class contains the dbsets for the entitys to intercat whit the database
+using Construction.Shared.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 
 namespace Construction.API.Data
 {
+    //inheritance whit the identityDbcontext whit User
     public class DataContext : IdentityDbContext<User>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)

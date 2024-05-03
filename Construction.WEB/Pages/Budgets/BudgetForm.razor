@@ -1,7 +1,12 @@
-﻿<EditForm Model="Budget" OnValidSubmit="OnValidSubmit">
+﻿@* Form of budget *@
 
+@* Model of the form *@
+<EditForm Model="Budget" OnValidSubmit="OnValidSubmit">
+
+    @* Validations of the entities *@
     <DataAnnotationsValidator/>
 
+    @* Fields to capture th atributes of the entitie *@
     <div class="mb-3">
         <label>Presupuesto equipo de construccion</label>
         <div>
@@ -48,8 +53,13 @@
         </div>
     </div>
 
+    @* submit of the form *@
     <button class="btn btn-primary" type="submit">Guardar <i class="bi bi-floppy2"></i></button>
+
+    @* reset of the form   *@
     <button class="btn btn-info" type="reset">Limpiar <i class="bi bi-x-octagon"></i></button>
+
+    @* returnanction to home of budgets *@
     <button class="btn btn-secondary" @onclick="ReturnAction">Regresar <i class="bi bi-arrow-clockwise"></i></button>
 
 

@@ -1,4 +1,5 @@
-﻿using Construction.API.Data;
+﻿//this class contains the methods of security for users (user,role, password)
+using Construction.API.Data;
 using Construction.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

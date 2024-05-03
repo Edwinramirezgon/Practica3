@@ -1,4 +1,4 @@
-﻿
+﻿//this class contains the web methods for crud
 using System.Text.Json;
 using System.Text;
 
@@ -13,11 +13,13 @@ namespace Construction.WEB.Repositories
             PropertyNameCaseInsensitive = true
         };
 
+        
         public Repository(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
+        //method get
         public async Task<HttpResponseWrapper<T>> GetAsync<T>(string url)
         {
             var responseHttp = await _httpClient.GetAsync(url);
@@ -32,6 +34,7 @@ namespace Construction.WEB.Repositories
             return new HttpResponseWrapper<T>(default, true, responseHttp);
         }
 
+        //method create
         public async Task<HttpResponseWrapper<object>> PostAsync<T>(string url, T model)
         {
             var mesageJSON = JsonSerializer.Serialize(model);
@@ -39,7 +42,7 @@ namespace Construction.WEB.Repositories
             var responseHttp = await _httpClient.PostAsync(url, messageContet);
             return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
         }
-
+        //method create
         public async Task<HttpResponseWrapper<TResponse>> PostAsync<T, TResponse>(string url, T model)
         {
             var messageJSON = JsonSerializer.Serialize(model);
@@ -53,12 +56,14 @@ namespace Construction.WEB.Repositories
             return new HttpResponseWrapper<TResponse>(default, !responseHttp.IsSuccessStatusCode, responseHttp);
         }
 
+        //method to unserialize
         private async Task<T> UnserializeAnswer<T>(HttpResponseMessage httpResponse, JsonSerializerOptions jsonSerializerOptions)
         {
             var respuestaString = await httpResponse.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<T>(respuestaString, jsonSerializerOptions)!;
         }
 
+        //method delete
         public async Task<HttpResponseWrapper<object>> DeleteAsync(string url)
         {
 
@@ -67,6 +72,7 @@ namespace Construction.WEB.Repositories
 
         }
 
+        //method Edit
         public async Task<HttpResponseWrapper<object>> PutAsync<T>(string url, T model)
         {
 
@@ -77,6 +83,7 @@ namespace Construction.WEB.Repositories
 
         }
 
+        //method Edit
         public async Task<HttpResponseWrapper<TResponse>> PutAsync<T, TResponse>(string url, T model)
         {
             var messageJSON = JsonSerializer.Serialize(model);

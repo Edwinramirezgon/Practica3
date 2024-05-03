@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Dutie Entitie whit all the validators
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,12 +27,10 @@ namespace Construction.Shared.Entities
         public string Description { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        //[Required(ErrorMessage = "El campo {0} es obligatorio")]
         public DateTime StartTime { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        //[Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public DateTime EndTime { get; set; }
+         public DateTime EndTime { get; set; }
 
         public string Remarks { get; set; }
 
@@ -39,8 +38,8 @@ namespace Construction.Shared.Entities
         [JsonIgnore]
         public ICollection<MaterialAssignment> MaterialAssignments { get; set; }
 
-        //object creation to assign FK in the database        
-      
+
+        //object creation to assign FK in the database             
 
         [ForeignKey("ProjectConstructionsId")]
         [JsonIgnore]
