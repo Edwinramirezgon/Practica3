@@ -1,17 +1,42 @@
-﻿<EditForm Model="EquipmentAssignment" OnValidSubmit="OnValidSubmit">
+﻿@inject IRepository Repository
+<EditForm Model="EquipmentAssignment" OnValidSubmit="OnValidSubmit">
 
     <DataAnnotationsValidator />
 
     <div class="mb-3">
-        <label>Id de la Maquinaria</label>
         <div>
-            <InputNumber width="10" @bind-Value="@EquipmentAssignment.ConstructionTeamsId"></InputNumber>
-            <ValidationMessage For="@(() => @EquipmentAssignment.ConstructionTeamsId)" />
+            <label>Equipo de Construccion</label>
+
+            <Dropdown TItem="int" OnSelected="@OnSelected2">
+                <InitialTip>Escoja un Equipo de Construccion</InitialTip>
+                <ChildContent >
+                    @foreach (var constructionteam in ConstructionTeams!)
+                    {
+                        <DropdownListItem Context="dropContext" Item="@constructionteam.Id">@constructionteam.Name</DropdownListItem>
+                    }
+                </ChildContent>
+            </Dropdown>
+           
+           
+            
+
         </div>
-        <label>Id del proyecto de construccion</label>
         <div>
-            <InputNumber width="10" @bind-Value="@EquipmentAssignment.ProjectConstructionsId"></InputNumber>
-            <ValidationMessage For="@(() => @EquipmentAssignment.ProjectConstructionsId)" />
+            <label>Proyecto de Construccion</label>
+
+            <Dropdown TItem="int" OnSelected="@OnSelected">
+                <InitialTip>Escoja un Proyecto de Construccion</InitialTip>
+                <ChildContent >
+                    @foreach (var projectconstruction in ProjectConstructions!)
+                    {
+                        <DropdownListItem Context="dropContext" Item="@projectconstruction.Id">@projectconstruction.Name</DropdownListItem>
+                    }
+                </ChildContent>
+            </Dropdown>
+           
+           
+            
+
         </div>
         
     </div>
@@ -31,6 +56,27 @@
 
 @code {
 
+    public List<ProjectConstruction> ProjectConstructions { get; set; }
+
+    public List<ConstructionTeam> ConstructionTeams { get; set; }
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        await Charging();
+    }
+
+    private async Task Charging()
+    {
+
+        var responseHTTP = await Repository.GetAsync<List<ProjectConstruction>>("/api/ProjectConstructions");
+        ProjectConstructions = responseHTTP.Response!;
+
+        var response2HTTP = await Repository.GetAsync<List<ConstructionTeam>>("/api/ConstructionTeams");
+        ConstructionTeams = response2HTTP.Response!;
+
+    }
+
 
     [EditorRequired]
     [Parameter]
@@ -45,6 +91,16 @@
     [EditorRequired]
     [Parameter]
     public EventCallback ReturnAction { get; set; }
+
+    private void OnSelected(int selection)
+    {
+        EquipmentAssignment.ProjectConstructionsId = selection;
+    }
+
+    private void OnSelected2(int selection2)
+    {
+        EquipmentAssignment.ConstructionTeamsId = selection2;
+    }
 
 
 }

@@ -1,4 +1,5 @@
-﻿<EditForm Model="Material" OnValidSubmit="OnValidSubmit">
+﻿@inject IRepository Repository
+<EditForm Model="Material" OnValidSubmit="OnValidSubmit">
 
     <DataAnnotationsValidator />
 
@@ -23,11 +24,17 @@
             <InputDate width="10" @bind-Value="@Material.EstimatedDeliveryTime"></InputDate>
             <ValidationMessage For="@(() => @Material.EstimatedDeliveryTime)" />
         </div>
-        <label>Id del Proyecto de Construccion</label>
-        <div>
-            <InputNumber width="10" @bind-Value="@Material.ProjectConstructionsId"></InputNumber>
-            <ValidationMessage For="@(() => @Material.ProjectConstructionsId)" />
-        </div>
+         <label>Proyecto de Construccion</label>
+
+            <Dropdown TItem="int" OnSelected="@OnSelected">
+                <InitialTip>Escoja un Proyecto de Construccion</InitialTip>
+                <ChildContent >
+                    @foreach (var projectconstruction in ProjectConstructions!)
+                    {
+                        <DropdownListItem Context="dropContext" Item="@projectconstruction.Id">@projectconstruction.Name</DropdownListItem>
+                    }
+                </ChildContent>
+            </Dropdown>
        
     </div>
 
@@ -46,6 +53,22 @@
 
 @code {
 
+    public List<ProjectConstruction> ProjectConstructions { get; set; }
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        await Charging();
+    }
+
+    private async Task Charging()
+    {
+
+        var responseHTTP = await Repository.GetAsync<List<ProjectConstruction>>("/api/ProjectConstructions");
+        ProjectConstructions = responseHTTP.Response!;
+
+    }
+
 
     [EditorRequired]
     [Parameter]
@@ -60,6 +83,11 @@
     [EditorRequired]
     [Parameter]
     public EventCallback ReturnAction { get; set; }
+
+    private void OnSelected(int selection)
+    {
+        Material.ProjectConstructionsId = selection;
+    }
 
 
 }

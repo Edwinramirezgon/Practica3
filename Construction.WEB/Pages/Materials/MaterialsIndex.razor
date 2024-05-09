@@ -46,7 +46,7 @@
                                 <b>Tiempo Estimado de Entrega</b>
                             </td>
                             <td>
-                                <b>ID Proyecto de Construccion</b>
+                                <b>Proyecto de Construccion</b>
                             </td>
                             <td>
                                 <b>Acciones</b>
@@ -55,6 +55,7 @@
                         </tr>
                         @foreach (var material in Materials!)
                         {
+                            Proyectname(@material.ProjectConstructionsId);
                             <tr>
                                 <td>
                                     @material.Id
@@ -72,7 +73,7 @@
                                     @material.EstimatedDeliveryTime
                                 </td>
                                 <td>
-                                    @material.ProjectConstructionsId
+                                    @proyectname
                                 </td>
 
 
@@ -97,7 +98,11 @@
 
 @code {
 
+    public string proyectname { get; set; }
+
     public List<Material> Materials { get; set; }
+
+    public List<ProjectConstruction> ProjectConstructions { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -110,6 +115,9 @@
     {
         var responseHTTP = await Repository.GetAsync<List<Material>>("/api/Materials");
         Materials = responseHTTP.Response!;
+
+        var response2HTTP = await Repository.GetAsync<List<ProjectConstruction>>("/api/ProjectConstructions");
+        ProjectConstructions = response2HTTP.Response!;
 
     }
 
@@ -159,6 +167,19 @@
                     Position = SweetAlertPosition.BottomEnd
                 });
             toast.FireAsync(icon: SweetAlertIcon.Success, message: "Material borrado con éxito.");
+        }
+    }
+
+    private void Proyectname(int? selection)
+    {
+        proyectname = "";
+        foreach (var projectconstruction in ProjectConstructions!)
+        {
+            if (selection == projectconstruction.Id)
+            {
+                proyectname = projectconstruction.Name;
+            }
+
         }
     }
 }

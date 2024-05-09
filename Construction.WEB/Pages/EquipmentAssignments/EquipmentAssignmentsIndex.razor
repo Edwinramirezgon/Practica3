@@ -35,10 +35,10 @@
                     <tbody>
                         <tr>
                             <td>
-                                <b>ID Equipo de Construccion</b>
+                                <b>Equipo de Construccion</b>
                             </td>
                             <td>
-                                <b>ID Proyecto de Construccion</b>
+                                <b> Proyecto de Construccion</b>
                             </td>
                             <td>
                                 <b>Acciones</b>
@@ -46,12 +46,14 @@
                         </tr>
                         @foreach (var equipmentassignment in EquipmentAssignments!)
                         {
+                            Proyectname(@equipmentassignment.ProjectConstructionsId);
+                            Teamname(@equipmentassignment.ConstructionTeamsId);
                             <tr>
                                 <td>
-                                    @equipmentassignment.ConstructionTeamsId
+                                    @teamname
                                 </td>
                                 <td>
-                                    @equipmentassignment.ProjectConstructionsId
+                                    @proyectname
                                 </td>
 
                                 <td>
@@ -75,6 +77,15 @@
 
 @code {
 
+    public string proyectname { get; set; }
+
+    public string teamname { get; set; }
+
+
+    public List<ProjectConstruction> ProjectConstructions { get; set; }
+
+    public List<ConstructionTeam> ConstructionTeams { get; set; }
+
     public List<EquipmentAssignment> EquipmentAssignments { get; set; }
 
     protected async override Task OnInitializedAsync()
@@ -88,6 +99,12 @@
     {
         var responseHTTP = await Repository.GetAsync<List<EquipmentAssignment>>("/api/EquipmentAssignments");
         EquipmentAssignments = responseHTTP.Response!;
+
+        var response3HTTP = await Repository.GetAsync<List<ProjectConstruction>>("/api/ProjectConstructions");
+        ProjectConstructions = response3HTTP.Response!;
+
+        var response2HTTP = await Repository.GetAsync<List<ConstructionTeam>>("/api/ConstructionTeams");
+        ConstructionTeams = response2HTTP.Response!;
 
     }
 
@@ -137,6 +154,32 @@
                 Position = SweetAlertPosition.BottomEnd
             });
         toast.FireAsync(icon: SweetAlertIcon.Success, message: "Asignacion de Maquinaria borrada con éxito.");
+    }
+
+    private void Proyectname(int? selection)
+    {
+        proyectname = "";
+        foreach (var projectconstruction in ProjectConstructions!)
+        {
+            if (selection == projectconstruction.Id)
+            {
+                proyectname = projectconstruction.Name;
+            }
+
+        }
+    }
+
+    private void Teamname(int? selection2)
+    {
+        teamname = "";
+        foreach (var constructionteam in ConstructionTeams!)
+        {
+            if (selection2 == constructionteam.Id)
+            {
+                teamname = constructionteam.Name;
+            }
+
+        }
     }
 }
 

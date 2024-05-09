@@ -31,6 +31,7 @@
                     </thead>
                     <tbody>
                         <tr>
+                          
                             @* Titles of the fields *@
                             <td>
                                 <b>ID</b>
@@ -54,7 +55,7 @@
                                 <b>Comentarios</b>
                             </td>
                             <td>
-                                <b>ID de Proyecto de Construccion</b>
+                                <b>Proyecto de Construccion</b>
                             </td>
 
                             <td>
@@ -65,6 +66,7 @@
                         @* Atributes of the entities to show *@
                         @foreach (var budget in Budgets!)
                         {
+                            Proyectname(@budget.ProjectConstructionsId);
 
                             <tr>
                                 <td>
@@ -89,7 +91,8 @@
                                     @budget.Remarks
                                 </td>
                                 <td>
-                                    @budget.ProjectConstructionsId
+                                    
+                                    @proyectname
                                 </td>
 
                                 <td>
@@ -101,6 +104,8 @@
 
                             </tr>
                         }
+                        
+
                     </tbody>
                 </table>
 
@@ -114,7 +119,12 @@
 
 @code {
 
+    public string proyectname { get; set; }
+
     public List<Budget> Budgets { get; set; }
+
+    public List<ProjectConstruction> ProjectConstructions { get; set; }
+
 
     protected async override Task OnInitializedAsync()
     {
@@ -127,6 +137,10 @@
     {
         var responseHTTP = await Repository.GetAsync<List<Budget>>("/api/budgets");
         Budgets = responseHTTP.Response!;
+    
+        var response2HTTP = await Repository.GetAsync<List<ProjectConstruction>>("/api/ProjectConstructions");
+        ProjectConstructions = response2HTTP.Response!;
+
 
     }
 
@@ -181,7 +195,19 @@
     }
 
 
+    private void Proyectname(int? selection)
 
+    {
+        proyectname = "";
+        foreach (var projectconstruction in ProjectConstructions!)
+        { 
+            if (selection == projectconstruction.Id)
+            {
+                proyectname = projectconstruction.Name;
+            }
+
+        }
+    }
 
 
 }

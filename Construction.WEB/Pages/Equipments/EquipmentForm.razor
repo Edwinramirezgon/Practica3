@@ -1,4 +1,5 @@
-﻿<EditForm Model="Equipment" OnSubmit="OnValidSubmit">
+﻿@inject IRepository Repository
+<EditForm Model="Equipment" OnSubmit="OnValidSubmit">
 
     <DataAnnotationsValidator />
 
@@ -28,16 +29,32 @@
             <InputText width="10" @bind-Value="@Equipment.Remarks"></InputText>
             <ValidationMessage For="@(() => @Equipment.Remarks)" />
         </div>
-        <label>Id del Proyecto de Construccion</label>
-        <div>
-            <InputNumber width="10" @bind-Value="@Equipment.ProjectConstructionsId"></InputNumber>
-            <ValidationMessage For="@(() => @Equipment.ProjectConstructionsId)" />
+         <div>
+            <label>Proyecto de Construccion</label>
+
+            <Dropdown TItem="int" OnSelected="@OnSelected">
+                <InitialTip>Escoja un Proyecto de Construccion</InitialTip>
+                <ChildContent >
+                    @foreach (var projectconstruction in ProjectConstructions!)
+                    {
+                        <DropdownListItem Context="dropContext" Item="@projectconstruction.Id">@projectconstruction.Name</DropdownListItem>
+                    }
+                </ChildContent>
+            </Dropdown>
         </div>
-        <label>Id de la tarea</label>
-        <div>
-            <InputNumber width="10" @bind-Value="@Equipment.DutiesId"></InputNumber>
-            <ValidationMessage For="@(() => @Equipment.DutiesId)" />
-        </div>                
+         <div>
+            <label>Tarea</label>
+
+            <Dropdown TItem="int" OnSelected="@OnSelected2">
+                <InitialTip>Escoja una Tarea</InitialTip>
+                <ChildContent >
+                    @foreach (var dutie in Duties!)
+                    {
+                        <DropdownListItem Context="dropContext" Item="@dutie.Id">@dutie.Name</DropdownListItem>
+                    }
+                </ChildContent>
+            </Dropdown>
+        </div>              
     </div>
 
     <button class="btn btn-primary" type="submit">Guardar <i class="bi bi-floppy2"></i></button>
@@ -54,6 +71,26 @@
 
 @code {
 
+    public List<Dutie> Duties { get; set; }
+
+    public List<ProjectConstruction> ProjectConstructions { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await Charging();
+    }
+
+
+    private async Task Charging()
+    {
+
+        var response3HTTP = await Repository.GetAsync<List<Dutie>>("/api/duties");
+        Duties = response3HTTP.Response!;
+
+        var response2HTTP = await Repository.GetAsync<List<ProjectConstruction>>("/api/ProjectConstructions");
+        ProjectConstructions = response2HTTP.Response!;
+
+    }
 
     [EditorRequired]
     [Parameter]
@@ -68,6 +105,17 @@
     [EditorRequired]
     [Parameter]
     public EventCallback ReturnAction { get; set; }
+
+
+    private void OnSelected(int selection)
+    {
+        Equipment.ProjectConstructionsId = selection;
+    }
+
+    private void OnSelected2(int selection2)
+    {
+        Equipment.DutiesId = selection2;
+    }
 
 
 }

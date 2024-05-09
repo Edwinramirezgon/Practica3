@@ -47,10 +47,10 @@
                                 <b>Comentarios</b>
                             </td>
                             <td>
-                                <b>ID Proyecto de Construccion</b>
+                                <b>Proyecto de Construccion</b>
                             </td>
                             <td>
-                                <b>ID Tarea</b>
+                                <b>Tarea</b>
                             </td>
                             <td>
                                 <b>Acciones</b>
@@ -58,6 +58,8 @@
                         </tr>
                         @foreach (var equipment in Equipments!)
                         {
+                            Proyectname(@equipment.ProjectConstructionsId);
+                            Dutiename(@equipment.DutiesId);
                             <tr>
                                 <td>
                                     @equipment.Id
@@ -78,10 +80,10 @@
                                     @equipment.Remarks
                                 </td>
                                 <td>
-                                    @equipment.ProjectConstructionsId
+                                    @proyectname
                                 </td>
                                 <td>
-                                    @equipment.DutiesId
+                                    @dutiename
                                 </td>
 
                                 <td>
@@ -106,6 +108,15 @@
 
 @code {
 
+    public string proyectname { get; set; }
+
+    public string dutiename { get; set; }
+
+
+    public List<Dutie> Duties { get; set; }
+
+    public List<ProjectConstruction> ProjectConstructions { get; set; }
+
     public List<Equipment> Equipments { get; set; }
 
     protected async override Task OnInitializedAsync()
@@ -119,6 +130,12 @@
     {
         var responseHTTP = await Repository.GetAsync<List<Equipment>>("/api/Equipments");
         Equipments = responseHTTP.Response!;
+
+        var response3HTTP = await Repository.GetAsync<List<Dutie>>("/api/duties");
+        Duties = response3HTTP.Response!;
+
+        var response2HTTP = await Repository.GetAsync<List<ProjectConstruction>>("/api/ProjectConstructions");
+        ProjectConstructions = response2HTTP.Response!;
 
     }
 
@@ -168,6 +185,32 @@
                     Position = SweetAlertPosition.BottomEnd
                 });
             toast.FireAsync(icon: SweetAlertIcon.Success, message: "maquinaria borrada con éxito.");
+        }
+    }
+
+    private void Proyectname(int? selection1)
+    {
+        proyectname = "";
+        foreach (var projectconstruction in ProjectConstructions!)
+        {
+            if (selection1 == projectconstruction.Id)
+            {
+                proyectname = projectconstruction.Name;
+            }
+
+        }
+    }
+
+    private void Dutiename(int? selection2)
+    {
+        dutiename = "";
+        foreach (var dutie in Duties!)
+        {
+            if (selection2 == dutie.Id)
+            {
+                dutiename = dutie.Name;
+            }
+
         }
     }
 }

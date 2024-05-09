@@ -1,10 +1,11 @@
-﻿@* Form of budget *@
+﻿@inject IRepository Repository
+@* Form of budget *@
 
 @* Model of the form *@
 <EditForm Model="Budget" OnValidSubmit="OnValidSubmit">
 
     @* Validations of the entities *@
-    <DataAnnotationsValidator/>
+    <DataAnnotationsValidator />
 
     @* Fields to capture th atributes of the entitie *@
     <div class="mb-3">
@@ -42,15 +43,31 @@
         <div>
             <InputText width="10" @bind-Value="@Budget.Remarks"></InputText>
             <ValidationMessage For="@(() => @Budget.Remarks)" />
-            
-        </div>
 
-        <label>Id del proyecto de construccion</label>
+        </div>
+ 
+
         <div>
-            <InputNumber width="10" @bind-Value="@Budget.ProjectConstructionsId"></InputNumber>
-            <ValidationMessage For="@(() => @Budget.ProjectConstructionsId)" />
+            <label>Proyecto de Construccion</label>
+
+            <Dropdown TItem="int" OnSelected="@OnSelected">
+                <InitialTip>Escoja un Proyecto de Construccion</InitialTip>
+                <ChildContent >
+                    @foreach (var projectconstruction in ProjectConstructions!)
+                    {
+                        <DropdownListItem Context="dropContext" Item="@projectconstruction.Id">@projectconstruction.Name</DropdownListItem>
+                    }
+                </ChildContent>
+            </Dropdown>
+           
+           
+            
 
         </div>
+
+
+
+
     </div>
 
     @* submit of the form *@
@@ -70,6 +87,21 @@
 
 @code {
 
+    public List<ProjectConstruction> ProjectConstructions { get; set; }
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        await Charging();
+    }
+
+    private async Task Charging()
+    {
+
+        var responseHTTP = await Repository.GetAsync<List<ProjectConstruction>>("/api/ProjectConstructions");
+        ProjectConstructions = responseHTTP.Response!;
+
+    }
 
 
     [EditorRequired]
@@ -88,5 +120,9 @@
 
 
 
-   
+    private void OnSelected(int selection)
+    {
+        Budget.ProjectConstructionsId = selection;
+    }
+
 }
