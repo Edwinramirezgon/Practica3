@@ -1,19 +1,40 @@
-﻿<EditForm Model="MaterialAssignment" OnValidSubmit="OnValidSubmit">
+﻿@inject IRepository Repository
+<EditForm Model="MaterialAssignment" OnValidSubmit="OnValidSubmit">
 
     <DataAnnotationsValidator />
 
     <div class="mb-3">
-        <label>Id del material</label>
+
         <div>
-            <InputNumber width="10" @bind-Value="@MaterialAssignment.MaterialsId"></InputNumber>
-            <ValidationMessage For="@(() => @MaterialAssignment.MaterialsId)" />
+            <label>Material</label>
+
+            <Dropdown TItem="int" OnSelected="@OnSelected2">
+                <InitialTip>Escoja un Material</InitialTip>
+                <ChildContent>
+                    @foreach (var material in Materials!)
+                    {
+                        <DropdownListItem Context="dropContext" Item="@material.Id">@material.Name</DropdownListItem>
+                    }
+                </ChildContent>
+            </Dropdown>
+     
         </div>
-        <label>Id de la tarea</label>
         <div>
-            <InputNumber width="10" @bind-Value="@MaterialAssignment.DutiesId"></InputNumber>
-            <ValidationMessage For="@(() => @MaterialAssignment.DutiesId)" />
+            <label>Tarea</label>
+
+            <Dropdown TItem="int" OnSelected="@OnSelected">
+                <InitialTip>Escoja una Tarea</InitialTip>
+                <ChildContent>
+                    @foreach (var dutie in Duties!)
+                    {
+                        <DropdownListItem Context="dropContext" Item="@dutie.Id">@dutie.Name</DropdownListItem>
+                    }
+                </ChildContent>
+            </Dropdown>
         </div>
-       
+
+
+
     </div>
 
 
@@ -30,6 +51,30 @@
 
 
 @code {
+    public List<Dutie> Duties { get; set; }
+
+    public List<Material> Materials { get; set; }
+
+    public List<ProjectConstruction> ProjectConstructions { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await Charging();
+    }
+
+
+    private async Task Charging()
+    {
+
+        var response3HTTP = await Repository.GetAsync<List<Dutie>>("/api/duties");
+        Duties = response3HTTP.Response!;
+
+        var response2HTTP = await Repository.GetAsync<List<Material>>("/api/Materials");
+        Materials = response2HTTP.Response!;
+
+
+
+    }
 
 
     [EditorRequired]
@@ -46,5 +91,14 @@
     [Parameter]
     public EventCallback ReturnAction { get; set; }
 
+    private void OnSelected(int selection)
+    {
+        MaterialAssignment.DutiesId = selection;
+    }
+
+    private void OnSelected2(int selection2)
+    {
+        MaterialAssignment.MaterialsId = selection2;
+    }
 
 }

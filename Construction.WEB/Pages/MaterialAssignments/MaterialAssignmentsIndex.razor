@@ -30,10 +30,13 @@
                     <tbody>
                         <tr>
                             <td>
-                                <b>ID Material</b>
+                                <b>ID</b>
                             </td>
                             <td>
-                                <b>ID Tarea</b>
+                                <b>Material</b>
+                            </td>
+                            <td>
+                                <b>Tarea</b>
                             </td>
                             <td>
                                 <b>Acciones</b>
@@ -41,12 +44,17 @@
                         </tr>
                         @foreach (var materialassignment in MaterialAssignments!)
                         {
+                            Dutiename(@materialassignment.DutiesId);
+                            Materialname(@materialassignment.MaterialsId);
                             <tr>
                                 <td>
-                                    @materialassignment.MaterialsId
+                                    @materialassignment.Id
                                 </td>
                                 <td>
-                                    @materialassignment.DutiesId
+                                    @materialname
+                                </td>
+                                <td>
+                                    @dutiename
                                 </td>
                                 <td>
                                     <a href="/MaterialAssignments/edit/@materialassignment.Id" class="btn btn-warning">Editar <i class="bi bi-pencil-square"></i></a>
@@ -69,6 +77,14 @@
 
 @code {
 
+    public string dutiename { get; set; }
+
+    public string materialname { get; set; }
+
+    public List<Dutie> Duties { get; set; }
+
+    public List<Material> Materials { get; set; }
+
     public List<MaterialAssignment> MaterialAssignments { get; set; }
     protected async override Task OnInitializedAsync()
     {
@@ -81,6 +97,12 @@
     {
         var responseHTTP = await Repository.GetAsync<List<MaterialAssignment>>("/api/MaterialAssignments");
         MaterialAssignments = responseHTTP.Response!;
+
+        var response3HTTP = await Repository.GetAsync<List<Dutie>>("/api/duties");
+        Duties = response3HTTP.Response!;
+
+        var response2HTTP = await Repository.GetAsync<List<Material>>("/api/Materials");
+        Materials = response2HTTP.Response!;
 
     }
 
@@ -130,6 +152,32 @@
                     Position = SweetAlertPosition.BottomEnd
                 });
             toast.FireAsync(icon: SweetAlertIcon.Success, message: "Asignacion de Material borrada con éxito.");
+        }
+    }
+
+    private void Dutiename(int? selection2)
+    {
+        dutiename = "";
+        foreach (var dutie in Duties!)
+        {
+            if (selection2 == dutie.Id)
+            {
+                dutiename = dutie.Name;
+            }
+
+        }
+    }
+
+    private void Materialname(int? selection2)
+    {
+        materialname = "";
+        foreach (var material in Materials!)
+        {
+            if (selection2 == material.Id)
+            {
+                materialname = material.Name;
+            }
+
         }
     }
 }

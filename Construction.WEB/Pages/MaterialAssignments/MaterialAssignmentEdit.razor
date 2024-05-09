@@ -48,7 +48,7 @@ else
     private async Task Editar()
     {
 
-        var responseHTTP = await repository.PutAsync("api/MaterialAssignments", materialAssignment);
+        var responseHTTP = await repository.PutAsync("/api/MaterialAssignments/", materialAssignment);
 
         if (responseHTTP.Error)
         {
