@@ -2,7 +2,7 @@
 @* Form of budget *@
 
 @* Model of the form *@
-<EditForm Model="Budget" OnValidSubmit="OnValidSubmit">
+<EditForm Model="Budget"  OnValidSubmit="OnValidSubmit" >
 
     @* Validations of the entities *@
     <DataAnnotationsValidator />
@@ -33,12 +33,7 @@
             <ValidationMessage For="@(() => @Budget.BudgetProyectConstruction)" />
 
         </div>
-        <label>Presupuesto total</label>
-        <div>
-            <InputNumber width="10" @bind-Value="@Budget.BudgetTotal"></InputNumber>
-            <ValidationMessage For="@(() => @Budget.BudgetTotal)" />
-
-        </div>
+        
         <label>Comentarios</label>
         <div>
             <InputText width="10" @bind-Value="@Budget.Remarks"></InputText>
@@ -71,7 +66,7 @@
     </div>
 
     @* submit of the form *@
-    <button class="btn btn-primary" type="submit">Guardar <i class="bi bi-floppy2"></i></button>
+    <button class="btn btn-primary" type="submit" ,@onclick="Total">Guardar <i class="bi bi-floppy2"></i></button>
 
     @* reset of the form   *@
     <button class="btn btn-info" type="reset">Limpiar <i class="bi bi-x-octagon"></i></button>
@@ -87,12 +82,13 @@
 
 @code {
 
-    public List<ProjectConstruction> ProjectConstructions { get; set; }
+    private List<ProjectConstruction> ProjectConstructions { get; set; }
 
 
     protected async override Task OnInitializedAsync()
     {
         await Charging();
+
     }
 
     private async Task Charging()
@@ -123,6 +119,12 @@
     private void OnSelected(int selection)
     {
         Budget.ProjectConstructionsId = selection;
+        Total();
     }
 
+
+    private void Total()
+    {
+        Budget.BudgetTotal = (Budget.BudgetConstructionTeam + Budget.BudgetDutie + Budget.BudgetEquipment + Budget.BudgetProyectConstruction);
+    }
 }

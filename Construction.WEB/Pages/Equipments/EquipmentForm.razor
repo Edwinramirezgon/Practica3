@@ -14,15 +14,33 @@
             <InputText width="10" @bind-Value="@Equipment.Capacity"></InputText>
             <ValidationMessage For="@(() => @Equipment.Capacity)" />
         </div>
-        <label>Estado del Mantenimiento</label>
         <div>
-            <InputText width="10" @bind-Value="@Equipment.MaintenanceState"></InputText>
-            <ValidationMessage For="@(() => @Equipment.MaintenanceState)" />
+            <label>Estado del Mantenimiento</label>
+
+            <Dropdown TItem="string" OnSelected="@OnSelected4">
+                <InitialTip>Escoja el Estado del Mantenimiento</InitialTip>
+                <ChildContent>
+                    <DropdownListItem Context="dropContext" Item="select[2] ">Mantenimiento Recien Realizado</DropdownListItem>
+                    <DropdownListItem Context="dropContext" Item="select[3] ">Proximo a Mantenimiento Preventivo</DropdownListItem>
+                    <DropdownListItem Context="dropContext" Item="select[4] ">En Mantenimiento</DropdownListItem>
+
+
+                </ChildContent>
+            </Dropdown>
         </div>
-        <label>Disponibilidad</label>
         <div>
-            <InputText width="10" @bind-Value="@Equipment.Availability"></InputText>
-            <ValidationMessage For="@(() => @Equipment.Availability)" />
+            <label>Disponibilidad</label>
+
+            <Dropdown TItem="string" OnSelected="@OnSelected3">
+                <InitialTip>Escoja la Disponibilidad</InitialTip>
+                <ChildContent>
+
+                    <DropdownListItem Context="dropContext" Item="select[0] ">Disponible</DropdownListItem>
+                    <DropdownListItem Context="dropContext" Item="select[1] ">No Disponible</DropdownListItem>
+
+                    
+                </ChildContent>
+            </Dropdown>
         </div>
         <label>Comentarios</label>
         <div>
@@ -71,6 +89,9 @@
 
 @code {
 
+    public List<string> select = new List<string> { "Disponible", "No Disponible", "Mantenimiento Recien Realizado", "Proximo a Mantenimiento Preventivo", "En Mantenimiento" };
+
+
     public List<Dutie> Duties { get; set; }
 
     public List<ProjectConstruction> ProjectConstructions { get; set; }
@@ -117,5 +138,14 @@
         Equipment.DutiesId = selection2;
     }
 
+    private void OnSelected3(string selection3)
+    {
+        Equipment.Availability = selection3;
+    }
+
+    private void OnSelected4(string selection4)
+    {
+        Equipment.MaintenanceState = selection4;
+    }
 
 }

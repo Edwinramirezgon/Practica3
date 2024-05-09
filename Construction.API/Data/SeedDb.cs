@@ -80,7 +80,7 @@ namespace Construction.API.Data
                     BudgetDutie = 50000,
                     BudgetEquipment = 80000,
                     BudgetProyectConstruction = 75000,
-                    BudgetTotal = 305000,
+                    BudgetTotal = ((305000)),
                     ProjectConstructionsId = 1,
                 });
                 _context.Budgets.Add(new Budget { BudgetConstructionTeam = 60000,
