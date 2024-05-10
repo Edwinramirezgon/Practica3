@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //this line is the parameter for the connection whit the database
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = Connectionwhitparams"));
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = WindowsSecurity"));
 
 
 //this is for the required parameters for the security of users
