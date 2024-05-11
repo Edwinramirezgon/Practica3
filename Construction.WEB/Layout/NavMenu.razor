@@ -1,121 +1,154 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <span class="" style="color:white;" aria-hidden="true"></span>
-        @if (!@IconMenuActive)
-        {
-            <a class="navbar-brand" href="">CONSTRUCTORA CHANGUALITO</a>
-        }
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+﻿<div class="navbar-wrapper">
+    <div class="top-row ps-3 navbar navbar-dark">
+        <div class="container-fluid">
+            <span class="" style="color:white;" aria-hidden="true"></span>
+            @if (!@IconMenuActive)
+            {
+                <a class="navbar-brand" href="">CONSTRUCTORA CHANGUALITO</a>
+            }
+            <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
     </div>
-</div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi bi-house" aria-hidden="true"></span>
-                @if (!@IconMenuActive)
-                {
-                    <label>Home</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="ProjectConstructions">
-                <span class="oi bi-buildings" aria-hidden="true"></span>
-                @if (!@IconMenuActive)
-                {
-                    <label>Proyecto de Construccion</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Budgets">
-                <span class="oi bi-cash" aria-hidden="true"></span>
-                @if (!@IconMenuActive)
-                {
-                    <label>Presupuesto</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="ConstructionTeams">
-                <span class="oi bi-tools" aria-hidden="true"></span>
-                @if (!@IconMenuActive)
-                {
-                    <label>Equipo de Construccion</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Duties">
-                <span class="oi bi-card-checklist" aria-hidden="true"></span>
-                @if (!@IconMenuActive)
-                {
-                    <label>Tarea</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Equipments">
-                <span class="oi bi-gear" aria-hidden="true"></span>
-                @if (!@IconMenuActive)
-                {
-                    <label>Maquinaria</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="EquipmentAssignments">
-                <span class="oi bi-arrow-left-right" aria-hidden="true"></span>
-                @if (!@IconMenuActive)
-                {
-                    <label>Asignacion De Maquinaria</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Materials">
-                <span class="oi bi-bricks" aria-hidden="true"></span>
-                @if (!@IconMenuActive)
-                {
-                    <label>Material</label>
-                }
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="MaterialAssignments">
-                <span class="oi bi-arrow-left-right" aria-hidden="true"></span>
-                @if (!@IconMenuActive)
-                {
-                    <label>Asignacion de Material</label>
-                }
-            </NavLink>
-        </div>
-    </nav>
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <nav class="flex-column">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi bi-house" aria-hidden="true"></span>
+                    @if (!@IconMenuActive)
+                    {
+                        <label>Home</label>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ProjectConstructions">
+                    <span class="oi bi-buildings" aria-hidden="true"></span>
+                    @if (!@IconMenuActive)
+                    {
+                        <label>Proyecto de Construccion</label>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Budgets">
+                    <span class="oi bi-cash" aria-hidden="true"></span>
+                    @if (!@IconMenuActive)
+                    {
+                        <label>Presupuesto</label>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ConstructionTeams">
+                    <span class="oi bi-tools" aria-hidden="true"></span>
+                    @if (!@IconMenuActive)
+                    {
+                        <label>Equipo de Construccion</label>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Duties">
+                    <span class="oi bi-card-checklist" aria-hidden="true"></span>
+                    @if (!@IconMenuActive)
+                    {
+                        <label>Tarea</label>
+                    }
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Equipments">
+                    <span class="oi bi-gear" aria-hidden="true"></span>
+                    @if (!@IconMenuActive)
+                    {
+                        <label>Maquinaria</label>
+                    }
+                </NavLink>
+            </div>
+         
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Materials">
+                    <span class="oi bi-bricks" aria-hidden="true"></span>
+                    @if (!@IconMenuActive)
+                    {
+                        <label>Material</label>
+                    }
+                </NavLink>
+            </div>
+            
+            <div class="nav-item px-3" @onclick="ToggleSubMenu">
+                <NavLink class="nav-link">
+                    <span class="oi bi-arrow-left-right" aria-hidden="true" title="Home"></span>
+                    @if (!@IconMenuActive)
+                    {
+                        <label>ASIGNACIONES</label>
+                        <span class="oi bi-arrow-left-right @(showSubMenu ? "bi-caret-up-fill" : "bi-caret-down-fill")
+                        ps-3" style="font-size: 1rem;" aria-hidden="true"></span>
+                    }
+
+                </NavLink>
+                <div class="sub-menu" style="display: @(showSubMenu ? "block" : "none")">
+                    <NavLink class="nav-link" href="MaterialAssignments">
+                        <span class="oi bi-bricks" aria-hidden="true"></span>
+                        @if (!@IconMenuActive)
+                        {
+                            <label>Material</label>
+                        }
+                    </NavLink>
+                    <NavLink class="nav-link" href="EquipmentAssignments">
+                        <span class="oi bi-gear" aria-hidden="true"></span>
+                        @if (!@IconMenuActive)
+                        {
+                            <label>Maquinaria</label>
+                        }
+                    </NavLink>
+
+                </div>
+            </div>
+        </nav>
 
 
-</div>
-
-<div class="bottom-row">
-    <div class="icon-menu-arrow">
-        @if (!@IconMenuActive)
-        {
-            <span class="oi oi-arrow-left" style="color: white;" @onclick="ToggleIconMenu"></span>
-        }
-        else
-        {
-            <span class="oi oi-arrow-right" style="color: white;" @onclick="ToggleIconMenu"></span>
-        }
     </div>
-</div>
+   
+    
 
+
+
+
+
+
+
+
+    <div class="bottom-row">
+        <div class="icon-menu-arrow">
+            @if (!@IconMenuActive)
+            {
+                <span class="oi oi-arrow-left" style="color: white;" @onclick="ToggleIconMenu"></span>
+            }
+            else
+            {
+                <span class="oi oi-arrow-right" style="color: white;" @onclick="ToggleIconMenu"></span>
+            }
+        </div>
+
+        
+
+    </div>
+        </div>
 
 
 
 @code {
+    private bool showSubMenu = false;
+
+    private void ToggleSubMenu()
+    {
+        showSubMenu = !showSubMenu;
+    }
+
     //bool to send to MainLayout for shrinking sidebar and showing/hide menu text
     private bool IconMenuActive { get; set; } = false;
 
@@ -139,4 +172,3 @@
         await ShowIconMenu.InvokeAsync(IconMenuActive);
     }
 }
-
