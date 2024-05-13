@@ -1,20 +1,45 @@
 ﻿@inherits LayoutComponentBase
 
+
 <div class="page">
     <div class="sidebar" style="@IconMenuCssClass">
         <NavMenu ShowIconMenu="ToggleIconMenu" />
     </div>
+    
 
-    <main>
-        <div class="top-row px-4">
+    <main>   
+        <ul>
             
-        </div>
+            <li><a href="">Constructora Changualito <i class="bi bi-house" ></i></a></li>
+            <li><a href="ProjectConstructions">Proyecto de Construccion <i class="bi bi-buildings"></i></a></li>
+            <li><a href="Budgets">Presupuesto <i class="bi bi-cash"></i></a></li>
+            <li><a href="ConstructionTeams">Equipo de Construccion <i class="bi bi-tools"></i></a></li>
+            <li><a href="Duties">Tarea <i class="bi bi-card-checklist"></i></a></li>
+            <li><a href="Equipments">Maquinaria <i class="bi bi-gear"></i></a></li>
+            <li><a href="Materials">Material <i class="bi bi-bricks"></i></a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Asignaciones <i class="bi bi-arrow-left-right"></i></a>
+                <div class="dropdown-content">
+                    <a href="MaterialAssignments">Material <i class="bi bi-bricks"></i></a>
+                    <a href="EquipmentAssignments">Maquinaria <i class="bi bi-gear"></i></a>
+                </div>
+            </li>
+        </ul>
+            
+
+        @*<div class="top-row px-4">
+        </div>*@
 
         <article class="content px-4">
             @Body
         </article>
     </main>
 </div>
+
+
+
+
+   
 
 @code {
     private bool _iconMenuActive { get; set; }
